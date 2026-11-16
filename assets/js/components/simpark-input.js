@@ -1,33 +1,80 @@
-// <simpark-input placeholder="..." value="..." icon="search" chevron="true" style-width="360px" href="..."></simpark-input>
+// <simpark-input placeholder="..." value="..." icon="search" chevron="true" style-width="360px" options="Waktu tercepat,Slot terbanyak,Jarak terdekat"></simpark-input>
 export class SimparkInput extends HTMLElement {
   connectedCallback() {
     const placeholder = this.getAttribute('placeholder') || '';
-    const value = this.getAttribute('value') || '';
+    const initialValue = this.getAttribute('value') || '';
     const hasIcon = this.getAttribute('icon') === 'search';
     const hasChevron = this.getAttribute('chevron') === 'true';
     const width = this.getAttribute('style-width') || 'auto';
     const href = this.getAttribute('href') || '';
+    const optionsAttr = this.getAttribute('options') || '';
     const rootPath = this.getAttribute('root-path') || './';
 
     const searchIconPath = `${rootPath}assets/img/search-icon.svg`;
     const chevronPath = `${rootPath}assets/img/chevron.svg`;
 
-    const iconHtml = hasIcon ? `<img src="${searchIconPath}" width="20" height="20" alt="Search">` : '';
-    const chevronHtml = hasChevron ? `<img src="${chevronPath}" width="20" height="20" alt="Select">` : '';
+    const iconHtml = hasIcon ? `<i class="bi bi-search text-muted me-1" style="font-size: 16px;"></i>` : '';
+    const chevronHtml = hasChevron ? `<i class="bi bi-chevron-down text-muted ms-1" style="font-size: 14px;"></i>` : '';
 
     if (href) {
+      // Input berfungsi sebagai Link / Navigasi
       this.innerHTML = `
-        <a href="${href}" class="custom-input text-decoration-none" style="width: ${width};">
+        <a href="${href}" class="custom-input text-decoration-none" style="width: ${width}; max-width: 100%;">
           ${iconHtml}
-          <span class="flex-grow-1 text-truncate text-dark">${value || placeholder}</span>
+          <span class="flex-grow-1 text-truncate text-dark">${initialValue || placeholder}</span>
           ${chevronHtml}
         </a>
       `;
-    } else {
+    } else if (hasChevron && optionsAttr) {
+      // Input bertindak sebagai Dropdown interaktif
+      const optionsList = optionsAttr.split(',').map(s => s.trim());
+      const dropdownId = 'dropdown-' + Math.random().toString(36).substring(2, 9);
+
       this.innerHTML = `
-        <div class="custom-input" style="width: ${width};">
+        <div class="dropdown d-inline-block" style="width: ${width}; max-width: 100%;">
+          <button 
+            class="custom-input w-100 text-start bg-white d-flex align-items-center justify-content-between border-1" 
+            type="button" 
+            id="${dropdownId}" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false"
+            style="width: 100%;">
+            ${iconHtml}
+            <span class="flex-grow-1 text-truncate text-dark selected-label">${initialValue || optionsList[0]}</span>
+            ${chevronHtml}
+          </button>
+          <ul class="dropdown-menu shadow-sm rounded-4 border-0 p-2 mt-1" aria-labelledby="${dropdownId}" style="width: 100%; min-width: 180px;">
+            ${optionsList.map(opt => `
+              <li>
+                <a class="dropdown-item rounded-3 py-2 ${opt === initialValue ? 'active fw-medium' : ''}" href="#" data-val="${opt}">
+                  ${opt}
+                </a>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `;
+
+      // Event listener saat opsi dipilih
+      const labelEl = this.querySelector('.selected-label');
+      this.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const selectedVal = item.getAttribute('data-val');
+          if (labelEl) labelEl.textContent = selectedVal;
+          this.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active', 'fw-medium'));
+          item.classList.add('active', 'fw-medium');
+
+          // Trigger custom event change jika diperlukan
+          this.dispatchEvent(new CustomEvent('change', { detail: { value: selectedVal } }));
+        });
+      });
+    } else {
+      // Input teks biasa
+      this.innerHTML = `
+        <div class="custom-input" style="width: ${width}; max-width: 100%;">
           ${iconHtml}
-          ${value ? `<span class="flex-grow-1 text-truncate text-dark">${value}</span>` : `<input type="text" placeholder="${placeholder}" class="border-0 bg-transparent w-100" style="outline: none;">`}
+          ${initialValue ? `<span class="flex-grow-1 text-truncate text-dark">${initialValue}</span>` : `<input type="text" placeholder="${placeholder}" class="border-0 bg-transparent w-100" style="outline: none;">`}
           ${chevronHtml}
         </div>
       `;

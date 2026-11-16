@@ -32,12 +32,19 @@ Proyek ini tersusun atas beberapa halaman yang saling terhubung mengikuti alur s
      └── Pilih Manual ────────► [ Cari Parkir ] (pages/explore.html)                  └── Keluar ──► [ Riwayat ] (pages/history.html)
 ```
 
-1. **`index.html` (Beranda / D01_Home)**: Rekomendasi zona parkir terbaik berdasarkan gedung tujuan (FILKOM), peta posisi zona, dan status kapasitas.
-2. **`pages/explore.html` (Cari Parkir / D02_Explore)**: Daftar seluruh zona (A, B, C), pencarian gedung, filter ketersediaan (*Semua, Tersedia, Terbatas, Penuh*), dan peta simulasi besar.
+1. **`index.html` (Beranda / D01_Home)**: Rekomendasi zona parkir terbaik berdasarkan gedung tujuan (FILKOM), Google Maps interaktif UB, dan status kapasitas.
+2. **`pages/explore.html` (Cari Parkir / D02_Explore)**: Daftar seluruh zona (A, B, C), pencarian gedung, filter ketersediaan (*Semua, Tersedia, Terbatas, Penuh*), dan Google Maps terintegrasi.
 3. **`pages/detail.html` (Detail Zona / D03_ZoneDetail)**: Rincian estimasi waktu perjalanan (*perjalanan, antrean, pencarian slot, jalan kaki*), ringkasan pilihan, dan modal konfirmasi pembuatan tiket.
 4. **`pages/ticket.html` (Tiket Parkir & QR / D04_Ticket)**: Tiket QR simulasi dengan countdown timer aktif 10 menit, petunjuk pintu masuk, dan tombol simulasi scan masuk/gagal.
-5. **`pages/active.html` (Parkir Aktif / D05_ActiveParking)**: Status kendaraan yang sedang terparkir, pencatat catatan lokasi spesifik, dan modal konfirmasi keluar parkir.
+5. **`pages/active.html` (Parkir Aktif / D05_ActiveParking)**: Status kendaraan yang sedang terparkir, lokasi di Google Maps, pencatat catatan lokasi spesifik, dan modal konfirmasi keluar parkir.
 6. **`pages/history.html` (Riwayat Parkir / D06_History)**: Riwayat seluruh transaksi parkir sebelumnya dilengkapi ubin statistik performa.
+
+---
+
+## 🗺️ Integrasi Google Maps (`<simpark-map>`)
+
+Komponen `<simpark-map>` menggunakan **Google Maps Embed interaktif** yang dipusatkan langsung ke area kampus **Universitas Brawijaya Malang**:
+- **Peta Nyata & Bersih**: Pengguna dapat melakukan *pan*, *drag*, dan *zoom in/zoom out* langsung di dalam peta Google Maps tanpa distraksi pin statis.
 
 ---
 
@@ -50,7 +57,7 @@ SIMPARK/
 ├── pages/                       # Seluruh sub-halaman aplikasi
 │   ├── explore.html             # Cari Parkir
 │   ├── detail.html              # Detail Zona
-│   ├── ticket.html               # Tiket & QR Code
+│   ├── ticket.html              # Tiket & QR Code
 │   ├── active.html              # Parkir Aktif
 │   └── history.html             # Riwayat Parkir
 └── assets/
@@ -59,7 +66,7 @@ SIMPARK/
     │   ├── variables.css        # Warna, token desain Figma, dan tipografi
     │   ├── layout.css           # Header dan wrapper layout
     │   ├── components.css       # Styling tombol, badge, ubin metrik, alert, modal
-    │   └── pages.css            # Styling peta simulasi, tiket, dan tabel
+    │   └── pages.css            # Styling peta Google Maps, tiket, dan tabel
     ├── js/
     │   ├── data.js              # Data dummy/simulasi zona & rincian kuota
     │   ├── app.js               # Logika filter, countdown timer, query URL
@@ -72,8 +79,8 @@ SIMPARK/
     │       ├── simpark-zone-card.js
     │       ├── simpark-chip.js
     │       ├── simpark-input.js
-    │       └── simpark-map.js
-    └── img/                     # Aset gambar peta UB, QR code, dan ikon SVG
+    │       └── simpark-map.js   # Komponen Google Maps Embed + Pin Marker
+    └── img/                     # Aset QR code dan ikon SVG
 ```
 
 ---
@@ -82,3 +89,4 @@ SIMPARK/
 - **Font**: Google Font *Space Grotesk*.
 - **Warna Identitas**: Biru UB (`#1763B1`), Aksen Emas/Kuning (`#FFCC33`), Hijau Sukses (`#237A49`), Merah Error (`#B42318`).
 - **Framework UI**: Bootstrap 5 (Grid, Flexbox, Utilities, Modal).
+- **Peta**: Google Maps Embed Service.
