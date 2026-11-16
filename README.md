@@ -41,10 +41,27 @@ Proyek ini tersusun atas beberapa halaman yang saling terhubung mengikuti alur s
 
 ---
 
-## 🗺️ Integrasi Google Maps (`<simpark-map>`)
+## 🗺️ Integrasi Peta Interaktif Leaflet (`<simpark-map>`)
 
-Komponen `<simpark-map>` menggunakan **Google Maps Embed interaktif** yang dipusatkan langsung ke area kampus **Universitas Brawijaya Malang**:
-- **Peta Nyata & Bersih**: Pengguna dapat melakukan *pan*, *drag*, dan *zoom in/zoom out* langsung di dalam peta Google Maps tanpa distraksi pin statis.
+Komponen `<simpark-map>` menggunakan **Leaflet.js + OpenStreetMap** yang dipusatkan langsung ke area kampus **Universitas Brawijaya Malang** (`[-7.9535, 112.6144]`):
+- **Peta Interaktif Penuh**: Pengguna dapat melakukan *pan*, *drag*, dan *zoom in/zoom out*.
+- **Custom Interactive Markers**:
+  - 📍 **Gedung F — FILKOM** (Marker biru UB tujuan pengendara)
+  - 🟢 **Zona A — Parkir Teknik Utara** (Marker hijau rekomendasi utama, 45 slot tersedia)
+  - 🟡 **Zona B — Parkir FIB Barat** (Marker kuning/oranye alternatif, 12 slot tersedia)
+  - 🔴 **Zona C — Parkir Samantha Krida** (Marker merah penuh, 0 slot)
+- **Pop-up Informasi**: Mengklik setiap pin akan menampilkan popup rincian kuota slot dan estimasi waktu.
+
+---
+
+## 📚 Library Siap Pakai (Plug-and-Play CDN)
+
+Aplikasi ini mengintegrasikan serangkaian library siap pakai via CDN tanpa build step:
+1. **Leaflet.js & OpenStreetMap**: Peta interaktif UB dengan custom marker pin zona parkir.
+2. **SweetAlert2**: Notifikasi modal & konfirmasi interaktif untuk pembuatan tiket serta penyelesaian parkir.
+3. **QRCode.js**: Generator QR Code dinamis berbasis teks tiket parkir.
+4. **DataTables.js**: Tabel riwayat transaksi dengan live filter search, pagination, dan column sorting.
+5. **Bootstrap Icons**: Koleksi ikon antarmuka modern dan tajam untuk navigasi dan input.
 
 ---
 
@@ -88,5 +105,6 @@ SIMPARK/
 ## 🎨 Desain Sistem & Framework
 - **Font**: Google Font *Space Grotesk*.
 - **Warna Identitas**: Biru UB (`#1763B1`), Aksen Emas/Kuning (`#FFCC33`), Hijau Sukses (`#237A49`), Merah Error (`#B42318`).
-- **Framework UI**: Bootstrap 5 (Grid, Flexbox, Utilities, Modal).
-- **Peta**: Google Maps Embed Service.
+- **Framework UI**: Bootstrap 5 (Grid, Flexbox, Utilities, Modal) & Bootstrap Icons.
+- **Peta**: Leaflet.js & OpenStreetMap.
+- **Interaksi**: SweetAlert2, DataTables, QRCode.js.
