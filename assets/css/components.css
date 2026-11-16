@@ -1,0 +1,303 @@
+/* Custom Input / Dropdown Pill */
+.custom-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 12px 20px;
+  background: var(--surface-default);
+  border: 1px solid var(--border-control);
+  border-radius: 99px;
+  font-size: 16px;
+  color: var(--text-default);
+  cursor: pointer;
+  transition: border-color 0.15s ease-in-out;
+}
+.custom-input:focus, .custom-input:hover {
+  border-color: var(--border-focus);
+}
+
+/* Custom Buttons */
+.btn-simpark-accent {
+  background-color: var(--accent-default);
+  color: var(--text-default);
+  border: none;
+  border-radius: 99px;
+  height: 48px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s ease;
+  text-decoration: none;
+}
+.btn-simpark-accent:hover {
+  filter: brightness(0.95);
+  color: var(--text-default);
+}
+
+.btn-simpark-primary {
+  background-color: var(--action-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 99px;
+  height: 48px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+  text-decoration: none;
+}
+.btn-simpark-primary:hover {
+  background-color: var(--action-hover);
+  color: var(--text-inverse);
+}
+
+.btn-simpark-secondary {
+  background-color: var(--surface-default);
+  color: var(--text-link);
+  border: 1px solid var(--border-control);
+  border-radius: 99px;
+  height: 48px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.btn-simpark-secondary:hover {
+  background-color: var(--surface-subtle);
+  color: var(--text-link);
+}
+
+.btn-simpark-inverse {
+  background-color: transparent;
+  color: var(--text-inverse);
+  border: 1px solid var(--surface-default);
+  border-radius: 99px;
+  height: 48px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.56px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.btn-simpark-inverse:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-inverse);
+}
+
+/* Badges */
+.badge-simpark {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge-success-simpark {
+  background-color: var(--status-success-surface);
+  color: var(--status-success-text);
+}
+.badge-warning-simpark {
+  background-color: var(--status-warning-surface);
+  color: var(--status-warning-text);
+}
+.badge-error-simpark {
+  background-color: var(--status-error-surface);
+  color: var(--status-error-text);
+}
+
+/* Chips */
+.chip-simpark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--surface-default);
+  border: 1px solid var(--border-control);
+  color: var(--text-default);
+  transition: all 0.15s ease;
+}
+.chip-simpark:hover {
+  border-color: var(--border-focus);
+}
+.chip-simpark.active {
+  background-color: var(--action-primary);
+  border-color: var(--action-primary);
+  color: var(--text-inverse);
+}
+
+/* Stat Tile */
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  border-radius: 20px;
+  flex: 1;
+}
+.stat-tile.tone-blue {
+  background-color: var(--action-hover);
+  color: var(--text-inverse);
+}
+.stat-tile.tone-light {
+  background-color: var(--surface-subtle);
+  color: var(--text-default);
+}
+.stat-tile .stat-label {
+  font-size: 14px;
+  line-height: 20px;
+}
+.stat-tile.tone-light .stat-label {
+  color: var(--text-muted);
+}
+.stat-tile.tone-blue .stat-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+.stat-tile .stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* Alert Component */
+.alert-simpark {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.alert-simpark .accent-bar {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.alert-simpark.tone-info {
+  background-color: var(--status-info-surface);
+}
+.alert-simpark.tone-info .accent-bar {
+  background-color: var(--status-info-text);
+}
+.alert-simpark.tone-info .alert-title {
+  color: var(--status-info-text);
+  font-weight: 500;
+}
+.alert-simpark.tone-warning {
+  background-color: var(--accent-soft);
+}
+.alert-simpark.tone-warning .accent-bar {
+  background-color: var(--status-warning-text);
+}
+.alert-simpark.tone-warning .alert-title {
+  color: var(--status-warning-text);
+  font-weight: 500;
+}
+.alert-simpark .alert-body {
+  color: var(--text-default);
+  margin: 0;
+}
+
+/* Cards & Containers */
+.card-simpark {
+  background: var(--surface-default);
+  border-radius: 24px;
+  box-shadow: 0px 8px 12px rgba(23, 99, 176, 0.1);
+  padding: 24px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-simpark.interactive {
+  cursor: pointer;
+}
+.card-simpark.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 12px 20px rgba(23, 99, 176, 0.15);
+}
+.card-simpark.selected {
+  background-color: var(--action-soft);
+  border: 2px solid var(--border-focus);
+}
+
+/* Hero Recommendation Box */
+.hero-recommendation-box {
+  background-color: var(--action-primary);
+  border-radius: 24px;
+  padding: 40px;
+  color: var(--text-inverse);
+  box-shadow: 0px 8px 16px rgba(23, 99, 176, 0.2);
+}
+
+/* Step Circles */
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 99px;
+  background: var(--action-soft);
+  color: var(--action-primary);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Modals */
+.modal-content.simpark-modal {
+  border-radius: 24px;
+  border: none;
+  box-shadow: 0px 16px 32px rgba(23, 99, 176, 0.2);
+  padding: 16px;
+}
+.modal-status-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 auto 16px auto;
+}
+.modal-status-icon.danger {
+  background-color: var(--status-error-surface);
+  color: var(--status-error-text);
+}
+.modal-status-icon.success {
+  background-color: var(--status-success-surface);
+  color: var(--status-success-text);
+}

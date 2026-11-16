@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMPARK-UB — Detail Zona</title>
+  
+  <!-- Space Grotesk Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <simpark-header active="explore" root-path="../"></simpark-header>
+
+  <!-- Konten Detail Zona (D03_ZoneDetail) -->
+  <main class="app-content container-xxl mt-4">
+    <!-- Breadcrumbs & Title -->
+    <div class="mb-4">
+      <div class="text-caption mb-1">
+        <a href="../index.html" class="text-decoration-none text-muted">Beranda</a> / 
+        <a href="explore.html" class="text-decoration-none text-muted">Cari Parkir</a> / 
+        <span class="text-dark fw-medium">Detail Zona</span>
+      </div>
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <h1 class="title-h1 mb-0 zone-detail-name">Zona A — Parkir Teknik Utara</h1>
+        <span class="badge-simpark badge-success-simpark zone-detail-badge">Tersedia · 45 slot</span>
+        <span class="badge-simpark" style="background-color: var(--action-soft); color: var(--text-link);">Rekomendasi</span>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left: Map & Time Breakdown -->
+      <div class="col-lg-7 d-flex flex-column gap-4">
+        <!-- Mini Map Component -->
+        <simpark-map height="300px" root-path="../"></simpark-map>
+
+        <!-- Rincian Estimasi Waktu Card -->
+        <div class="card-simpark">
+          <h3 class="title-h3 mb-3">Rincian estimasi waktu</h3>
+          
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>Perjalanan menuju zona</span>
+            <strong id="breakdown-travel">3 menit</strong>
+          </div>
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>Antrean masuk</span>
+            <strong id="breakdown-queue">1 menit</strong>
+          </div>
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>Mencari slot</span>
+            <strong id="breakdown-search">2 menit</strong>
+          </div>
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>Jalan kaki ke Gedung F</span>
+            <strong id="breakdown-walk">2 menit</strong>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center pt-3">
+            <span class="fw-medium">Estimasi total</span>
+            <h2 class="title-h2 mb-0" style="color: var(--action-primary);" id="zone-detail-total-time">8 menit</h2>
+          </div>
+        </div>
+
+        <!-- Alert Component -->
+        <simpark-alert 
+          tone="info" 
+          title="Tiket bukan reservasi slot" 
+          body="Slot berkurang hanya setelah scan masuk valid.">
+        </simpark-alert>
+      </div>
+
+      <!-- Right: Ringkasan Pilihan & Actions -->
+      <div class="col-lg-5">
+        <div class="card-simpark h-100 d-flex flex-column justify-content-between">
+          <div>
+            <h3 class="title-h3 mb-3">Ringkasan pilihan</h3>
+
+            <!-- Stats Tiles (Components) -->
+            <div class="d-flex gap-3 mb-4">
+              <simpark-stat-tile tone="light" label="Slot tersedia" value="45 / 100" id="zone-detail-slot"></simpark-stat-tile>
+              <simpark-stat-tile tone="light" label="Antrean" value="Rendah" id="zone-detail-queue"></simpark-stat-tile>
+            </div>
+
+            <!-- Metadata Rows -->
+            <div class="d-flex justify-content-between py-2 border-bottom">
+              <span class="text-caption">Gedung tujuan</span>
+              <strong>Gedung F — FILKOM</strong>
+            </div>
+            <div class="d-flex justify-content-between py-2 border-bottom">
+              <span class="text-caption">Zona</span>
+              <strong class="zone-detail-name">Zona A — Teknik Utara</strong>
+            </div>
+            <div class="d-flex justify-content-between py-2 mb-4">
+              <span class="text-caption">Masa berlaku tiket</span>
+              <strong>10 menit</strong>
+            </div>
+          </div>
+
+          <div>
+            <div class="d-grid gap-2 mb-3">
+              <button class="btn-simpark-primary w-100" data-bs-toggle="modal" data-bs-target="#confirmTicketModal">Buat Tiket Masuk</button>
+              <a href="explore.html" class="btn-simpark-secondary w-100">Kembali Cari Zona Lain</a>
+            </div>
+
+            <!-- Alert Component -->
+            <simpark-alert 
+              tone="warning" 
+              title="Masa Berlaku 10 Menit" 
+              body="Buat tiket saat sudah mendekati gerbang masuk kampus.">
+            </simpark-alert>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Konfirmasi Buat Tiket -->
+  <div class="modal fade" id="confirmTicketModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+      <div class="modal-content simpark-modal">
+        <div class="modal-body p-4">
+          <h2 class="title-h2 mb-3">Konfirmasi pembuatan tiket</h2>
+          
+          <div class="card-simpark p-3 mb-3 bg-light border-0">
+            <div class="d-flex justify-content-between py-1">
+              <span class="text-caption">Gedung tujuan</span>
+              <strong>Gedung F — FILKOM</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1">
+              <span class="text-caption">Zona</span>
+              <strong class="zone-detail-name">Zona A — Teknik Utara</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1">
+              <span class="text-caption">Masa berlaku</span>
+              <strong>10 menit</strong>
+            </div>
+          </div>
+
+          <simpark-alert 
+            class="d-block mb-4"
+            tone="info" 
+            title="Tiket bukan reservasi slot" 
+            body="Slot berkurang hanya setelah scan masuk valid.">
+          </simpark-alert>
+
+          <div class="d-grid gap-2">
+            <a href="ticket.html" class="btn-simpark-primary w-100">Buat Tiket Sekarang</a>
+            <button class="btn-simpark-secondary w-100" data-bs-dismiss="modal">Batal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../assets/js/components/index.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

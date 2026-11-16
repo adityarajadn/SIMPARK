@@ -1,0 +1,51 @@
+/* Header & Navigation Bar */
+.app-header {
+  background: var(--surface-default);
+  border: 1px solid var(--border-default);
+  border-radius: 36px;
+  box-shadow: 0px 8px 12px rgba(23, 99, 176, 0.1);
+  height: 72px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: var(--text-default);
+}
+.brand-subtitle {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-muted);
+}
+
+.nav-item-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+.nav-item-btn:hover {
+  color: var(--text-link);
+}
+.nav-item-btn.active {
+  background-color: var(--action-soft);
+  color: var(--text-link);
+}
+
+/* Main Content Wrapper */
+.app-content {
+  position: relative;
+  z-index: 5;
+  padding-bottom: 60px;
+}

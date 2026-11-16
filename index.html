@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMPARK-UB — Beranda</title>
+  
+  <!-- Space Grotesk Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <simpark-header active="home" root-path="./"></simpark-header>
+
+  <!-- Konten Beranda (D01_Home) -->
+  <main class="app-content container-xxl mt-4">
+    <!-- Title Row -->
+    <div class="d-flex flex-wrap align-items-end justify-content-between mb-4 gap-3">
+      <div>
+        <div class="text-caption mb-1">Senin, 9 November 2026</div>
+        <h1 class="title-h1 mb-0">Halo, mau parkir ke mana hari ini?</h1>
+      </div>
+      <div class="d-flex flex-column align-items-start">
+        <label class="text-caption fw-medium mb-1">Gedung tujuan</label>
+        <simpark-input value="Gedung F — FILKOM" icon="search" chevron="true" style-width="360px" href="pages/explore.html" root-path="./"></simpark-input>
+      </div>
+    </div>
+
+    <!-- Hero Row -->
+    <div class="row g-4 mb-4">
+      <!-- Rekomendasi Utama -->
+      <div class="col-lg-7">
+        <div class="hero-recommendation-box h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-overline" style="color: var(--accent-default);">REKOMENDASI TERBAIK</div>
+                <h2 class="title-h1 text-white mt-1 mb-0">Zona A — Parkir Teknik Utara</h2>
+              </div>
+              <simpark-badge tone="success" label="Tersedia · 45 slot"></simpark-badge>
+            </div>
+            <p class="text-white mt-3" style="font-size: 16px; opacity: 0.95;">
+              Dipilih karena waktu total tercepat ke Gedung F FILKOM, slot masih lega, dan antrean rendah.
+            </p>
+
+            <!-- Stat Tiles (Components) -->
+            <div class="row g-3 my-2">
+              <div class="col-sm-4">
+                <simpark-stat-tile tone="blue" label="Estimasi total" value="8 menit"></simpark-stat-tile>
+              </div>
+              <div class="col-sm-4">
+                <simpark-stat-tile tone="blue" label="Slot tersedia" value="45 / 100"></simpark-stat-tile>
+              </div>
+              <div class="col-sm-4">
+                <simpark-stat-tile tone="blue" label="Antrean" value="Rendah"></simpark-stat-tile>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="pages/detail.html?zone=A" class="btn-simpark-accent">Lihat Detail Zona</a>
+            <a href="pages/explore.html" class="btn-simpark-inverse">Pilih Parkir Manual</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Posisi Zona (Simulated Map Component) -->
+      <div class="col-lg-5">
+        <div class="card-simpark h-100 d-flex flex-column justify-content-between">
+          <div>
+            <h3 class="title-h3 mb-3">Posisi zona</h3>
+            <simpark-map height="300px" root-path="./" class="mb-3 d-block"></simpark-map>
+          </div>
+
+          <!-- Legenda -->
+          <div class="d-flex align-items-center gap-3 pt-2">
+            <div class="d-flex align-items-center gap-2">
+              <img src="assets/img/legend-recommendation.svg" width="10" height="10" alt="">
+              <span class="text-caption">Rekomendasi</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <img src="assets/img/legend-alternative.svg" width="10" height="10" alt="">
+              <span class="text-caption">Alternatif</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <img src="assets/img/legend-full.svg" width="10" height="10" alt="">
+              <span class="text-caption">Penuh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alternatif Row -->
+    <div class="mt-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="title-h2 mb-0">Alternatif zona</h2>
+        <a href="pages/explore.html" class="text-decoration-none fw-medium" style="color: var(--text-link); font-size: 14px;">Lihat semua zona →</a>
+      </div>
+
+      <div class="row g-4">
+        <!-- Zone Card B (Component) -->
+        <div class="col-lg-4">
+          <simpark-zone-card 
+            zone-key="B" 
+            name="Parkir FILKOM Selatan" 
+            status-tone="warning" 
+            status-text="Terbatas · 12 slot" 
+            estimate="9 menit" 
+            slots="12 / 80" 
+            queue="Sedang" 
+            href="pages/detail.html?zone=B">
+          </simpark-zone-card>
+        </div>
+
+        <!-- Zone Card C (Component) -->
+        <div class="col-lg-4">
+          <simpark-zone-card 
+            zone-key="C" 
+            name="Parkir Gedung Rektorat" 
+            status-tone="error" 
+            status-text="Penuh · 0 slot" 
+            estimate="11 menit" 
+            slots="0 / 60" 
+            queue="Tinggi" 
+            href="pages/detail.html?zone=C">
+          </simpark-zone-card>
+        </div>
+
+        <!-- Alert Component -->
+        <div class="col-lg-4">
+          <simpark-alert 
+            tone="info" 
+            title="Rekomendasi diperbarui otomatis" 
+            body="Ubah gedung tujuan untuk menghitung ulang zona terbaik.">
+          </simpark-alert>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Components Module -->
+  <script type="module" src="assets/js/components/index.js"></script>
+  <!-- App Logic -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

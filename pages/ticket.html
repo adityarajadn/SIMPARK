@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMPARK-UB — Tiket Parkir</title>
+  
+  <!-- Space Grotesk Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <simpark-header active="home" root-path="../"></simpark-header>
+
+  <!-- Konten Tiket Parkir (D04_Ticket) -->
+  <main class="app-content container-xxl mt-4">
+    <div class="mx-auto" style="max-width: 960px;">
+      <!-- Title & Status -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <div class="text-caption mb-1">Beranda / Zona A / Tiket</div>
+          <h1 class="title-h1 mb-0">Tiket Parkir</h1>
+        </div>
+        <simpark-badge tone="success" label="Aktif · Belum Digunakan"></simpark-badge>
+      </div>
+
+      <div class="row g-4">
+        <!-- Ticket QR Card (col-md-5) -->
+        <div class="col-md-5">
+          <div class="ticket-qr-card h-100 d-flex flex-column justify-content-between">
+            <div class="ticket-band">
+              <div class="text-overline" style="color: rgba(255, 255, 255, 0.8);">SIMPARK-UB · TIKET MASUK</div>
+              <h2 class="title-h2 text-white mb-1">TKT-001</h2>
+              <div class="text-white" style="font-size: 14px; opacity: 0.9;">Zona A — Parkir Teknik Utara</div>
+            </div>
+            <div class="ticket-body">
+              <div class="qr-wrap">
+                <img src="../assets/img/ticket-qr.svg" alt="QR Code Simulasi">
+              </div>
+              <div class="text-caption text-center mb-3">QR simulasi — tidak dapat dipindai scanner nyata</div>
+              <hr class="my-3">
+              <div class="d-flex flex-column gap-2 text-caption">
+                <div class="d-flex justify-content-between">
+                  <span>Diterbitkan</span>
+                  <strong class="text-dark">10:04</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Berlaku hingga</span>
+                  <strong class="text-dark">10:14</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Gedung tujuan</span>
+                  <strong class="text-dark">Gedung F — FILKOM</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions & Countdown (col-md-7) -->
+        <div class="col-md-7 d-flex flex-column gap-3">
+          <!-- Countdown Panel -->
+          <div class="card-simpark">
+            <div class="text-overline text-muted mb-1">SISA WAKTU TIKET</div>
+            <h1 class="title-h1" id="ticket-countdown-timer" style="color: var(--action-primary); font-size: 42px;">09:42</h1>
+            <div class="progress my-3" style="height: 8px; border-radius: 99px; background: var(--surface-subtle);">
+              <div class="progress-bar" id="ticket-progress-bar" style="width: 95%; background-color: var(--action-primary);"></div>
+            </div>
+            <div class="text-caption">Tiket kedaluwarsa otomatis setelah 10 menit dan tidak berlaku hari berikutnya.</div>
+          </div>
+
+          <!-- Petunjuk di Pintu Masuk -->
+          <div class="card-simpark">
+            <h3 class="title-h3 mb-3">Petunjuk di pintu masuk</h3>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="step-num">1</div>
+                <span>Menuju pintu masuk Zona A.</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div class="step-num">2</div>
+                <span>Tunjukkan QR ini ke petugas.</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div class="step-num">3</div>
+                <span>Petugas memverifikasi dan mencatat kendaraan masuk.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulation Action Buttons -->
+          <div class="d-grid gap-2">
+            <a href="active.html" class="btn-simpark-primary">Simulasi: Scan Berhasil Masuk</a>
+            <button class="btn-simpark-secondary" data-bs-toggle="modal" data-bs-target="#scanFailedModal">Simulasi: Scan Gagal (Kedaluwarsa)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Scan Gagal -->
+  <div class="modal fade" id="scanFailedModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+      <div class="modal-content simpark-modal text-center">
+        <div class="modal-body p-4">
+          <div class="modal-status-icon danger">!</div>
+          <h2 class="title-h2 mb-2">Scan masuk gagal</h2>
+          <p class="text-caption mb-3">Tiket TKT-001 sudah kedaluwarsa. Status tiket tidak berubah dan slot zona tidak terpengaruh.</p>
+
+          <div class="card-simpark p-3 mb-3 bg-light border-0 text-start">
+            <div class="d-flex justify-content-between py-1">
+              <span class="text-caption">Alasan</span>
+              <strong class="text-danger">Kedaluwarsa</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1">
+              <span class="text-caption">Berlaku hingga</span>
+              <strong>10:14</strong>
+            </div>
+          </div>
+
+          <simpark-alert 
+            class="d-block mb-4 text-start"
+            tone="info" 
+            title="Buat Tiket Baru" 
+            body="Silakan buat tiket baru ketika Anda berada di dekat lokasi gerbang.">
+          </simpark-alert>
+
+          <div class="d-grid gap-2">
+            <a href="explore.html" class="btn-simpark-primary w-100">Cari Zona Lain</a>
+            <button class="btn-simpark-secondary w-100" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../assets/js/components/index.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
