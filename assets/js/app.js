@@ -1,73 +1,16 @@
-// SIMPARK UB Common & Simulation Logic
+/**
+ * Logika Interaktif & Simulasi SIMPARK-UB
+ */
+import { ZONES } from './data.js';
 
-const ZONES = {
-  A: {
-    id: "Zona A",
-    fullName: "Zona A — Parkir Teknik Utara",
-    slotTotal: 100,
-    slotAvailable: 45,
-    statusText: "Tersedia · 45 slot",
-    statusTone: "success",
-    timeMinutes: 8,
-    queue: "Rendah",
-    desc: "Dipilih karena waktu total tercepat ke Gedung F FILKOM, slot masih lega, dan antrean rendah.",
-    badgeClass: "badge-success-simpark",
-    destBuilding: "Gedung F — FILKOM",
-    breakdown: {
-      travel: "3 menit",
-      queue: "1 menit",
-      searchSlot: "2 menit",
-      walk: "2 menit"
-    }
-  },
-  B: {
-    id: "Zona B",
-    fullName: "Zona B — Parkir FILKOM Selatan",
-    slotTotal: 80,
-    slotAvailable: 12,
-    statusText: "Terbatas · 12 slot",
-    statusTone: "warning",
-    timeMinutes: 9,
-    queue: "Sedang",
-    desc: "Alternatif terdekat kedua dengan kapasitas sedang menuju FILKOM.",
-    badgeClass: "badge-warning-simpark",
-    destBuilding: "Gedung F — FILKOM",
-    breakdown: {
-      travel: "4 menit",
-      queue: "2 menit",
-      searchSlot: "2 menit",
-      walk: "1 menit"
-    }
-  },
-  C: {
-    id: "Zona C",
-    fullName: "Zona C — Parkir Gedung Rektorat",
-    slotTotal: 60,
-    slotAvailable: 0,
-    statusText: "Penuh · 0 slot",
-    statusTone: "error",
-    timeMinutes: 11,
-    queue: "Tinggi",
-    desc: "Zona saat ini penuh karena aktivitas di area rektorat.",
-    badgeClass: "badge-error-simpark",
-    destBuilding: "Gedung F — FILKOM",
-    breakdown: {
-      travel: "4 menit",
-      queue: "4 menit",
-      searchSlot: "1 menit",
-      walk: "2 menit"
-    }
-  }
-};
-
-// Helper: Get URL query parameter
-function getQueryParam(param) {
+// Ambil parameter URL (misal: ?zone=B)
+export function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Countdown timer logic for ticket.html
-function initTicketCountdown() {
+// Countdown timer otomatis untuk tiket (ticket.html)
+export function initTicketCountdown() {
   const countdownEl = document.getElementById('ticket-countdown-timer');
   const progressEl = document.getElementById('ticket-progress-bar');
   if (!countdownEl) return;
@@ -89,8 +32,8 @@ function initTicketCountdown() {
   }, 1000);
 }
 
-// Filter chips logic for explore.html
-function initExploreFilters() {
+// Filter ketersediaan slot (explore.html)
+export function initExploreFilters() {
   const filterChips = document.querySelectorAll('#explore-filter-chips .chip-simpark');
   if (!filterChips.length) return;
 
@@ -103,7 +46,7 @@ function initExploreFilters() {
       document.querySelectorAll('.explore-zone-card').forEach(card => {
         const tone = card.getAttribute('data-tone');
         if (filter === 'all' || filter === tone) {
-          card.style.display = 'flex';
+          card.style.display = 'block';
         } else {
           card.style.display = 'none';
         }
@@ -112,8 +55,8 @@ function initExploreFilters() {
   });
 }
 
-// Populate detail.html based on ?zone=A|B|C
-function initZoneDetail() {
+// Menampilkan data zona dinamis pada detail.html (?zone=A|B|C)
+export function initZoneDetail() {
   const zoneKey = getQueryParam('zone') || 'A';
   const zone = ZONES[zoneKey] || ZONES['A'];
 
@@ -124,10 +67,10 @@ function initZoneDetail() {
   });
 
   const slotEl = document.getElementById('zone-detail-slot');
-  if (slotEl) slotEl.textContent = `${zone.slotAvailable} / ${zone.slotTotal}`;
+  if (slotEl) slotEl.setAttribute('value', `${zone.slotAvailable} / ${zone.slotTotal}`);
 
   const antreanEl = document.getElementById('zone-detail-queue');
-  if (antreanEl) antreanEl.textContent = zone.queue;
+  if (antreanEl) antreanEl.setAttribute('value', zone.queue);
 
   const totalTimeEl = document.getElementById('zone-detail-total-time');
   if (totalTimeEl) totalTimeEl.textContent = `${zone.timeMinutes} menit`;
@@ -138,6 +81,7 @@ function initZoneDetail() {
   if (document.getElementById('breakdown-walk')) document.getElementById('breakdown-walk').textContent = zone.breakdown.walk;
 }
 
+// Inisialisasi otomatis saat DOM siap
 document.addEventListener('DOMContentLoaded', () => {
   initTicketCountdown();
   initExploreFilters();
