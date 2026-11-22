@@ -10,9 +10,6 @@ export class SimparkInput extends HTMLElement {
     const optionsAttr = this.getAttribute('options') || '';
     const rootPath = this.getAttribute('root-path') || './';
 
-    const searchIconPath = `${rootPath}assets/img/search-icon.svg`;
-    const chevronPath = `${rootPath}assets/img/chevron.svg`;
-
     const iconHtml = hasIcon ? `<i class="bi bi-search text-muted me-1" style="font-size: 16px;"></i>` : '';
     const chevronHtml = hasChevron ? `<i class="bi bi-chevron-down text-muted ms-1" style="font-size: 14px;"></i>` : '';
 

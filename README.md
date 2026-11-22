@@ -79,9 +79,6 @@ SIMPARK/
     │       ├── simpark-chip.js
     │       ├── simpark-input.js
     │       └── simpark-map.js   # Leaflet Map embed dengan pin interaktif
-    └── img/                     # Aset vektor SVG & visual (👉 Lihat assets/img/README.md)
-        ├── README.md            # Katalog dan fungsi masing-masing ikon
-        └── *.svg / *.png        # Ikon status, chevron, QR code, dekorasi blob
 ```
 
 ---

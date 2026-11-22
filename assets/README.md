@@ -1,6 +1,6 @@
 # Dokumentasi Folder: `assets/`
 
-Folder `assets/` menyimpan seluruh sumber daya pendukung antarmuka pengguna SIMPARK-UB, mulai dari stylesheet CSS bertingkat (modular tokens), aset gambar/vektor SVG, hingga kode JavaScript logika bisnis dan pustaka Web Components kustom.
+Folder `assets/` menyimpan seluruh sumber daya pendukung antarmuka pengguna SIMPARK-UB, mencakup stylesheet CSS bertingkat (modular tokens), kode JavaScript logika bisnis, serta pustaka Web Components kustom. Seluruh ikon dan grafis telah dioptimalkan menggunakan font ikonik modern (Bootstrap Icons) dan CSS murni tanpa ketergantungan pada file gambar statis.
 
 ---
 
@@ -15,27 +15,20 @@ assets/
 │   ├── layout.css   # Layout grid, navbar header, dan responsive container
 │   ├── components.css # Styling tombol, badge, card, modal, alert, dll
 │   └── pages.css    # Styling halaman khusus (tiket QR, peta Leaflet, tabel riwayat)
-├── js/              # Logika pemrograman & data aplikasi
-│   ├── README.md    # Dokumentasi arsitektur JavaScript, state & web components
-│   ├── data.js      # Objek data terpusat zona parkir
-│   ├── app.js       # Controller event, query parameter handler, countdown & integrasi plugin
-│   └── components/  # Web Components (Custom Elements) kustom
-│       ├── index.js # Entry file untuk mendefinisikan seluruh Web Components
-│       ├── simpark-header.js
-│       ├── simpark-input.js
-│       ├── simpark-badge.js
-│       ├── simpark-chip.js
-│       ├── simpark-alert.js
-│       ├── simpark-stat-tile.js
-│       ├── simpark-zone-card.js
-│       └── simpark-map.js
-└── img/             # Aset grafis statis (ikon SVG, peta fallback, dll)
-    ├── README.md    # Dokumentasi kegunaan masing-masing aset grafis
-    ├── blob-*.svg   # Elemen dekoratif latar belakang
-    ├── chevron.svg  # Ikon panah dropdown
-    ├── search-icon.svg # Ikon pencarian input
-    ├── ticket-qr.svg# QR code SVG bawaan
-    └── map-ub.png   # Gambar peta statis kampus UB (fallback)
+└── js/              # Logika pemrograman & data aplikasi
+    ├── README.md    # Dokumentasi arsitektur JavaScript, state & web components
+    ├── data.js      # Objek data terpusat zona parkir
+    ├── app.js       # Controller event, query parameter handler, countdown & integrasi plugin
+    └── components/  # Web Components (Custom Elements) kustom
+        ├── index.js # Entry file untuk mendefinisikan seluruh Web Components
+        ├── simpark-header.js
+        ├── simpark-input.js
+        ├── simpark-badge.js
+        ├── simpark-chip.js
+        ├── simpark-alert.js
+        ├── simpark-stat-tile.js
+        ├── simpark-zone-card.js
+        └── simpark-map.js
 ```
 
 ---
@@ -71,10 +64,6 @@ flowchart LR
         ComponentsIndex --> Components["simpark-*.js"]
     end
 
-    subgraph Img_Assets["assets/img/"]
-        SVGIcons["SVG Icons & Blobs"]
-    end
-
     Index --> StyleCSS
     Pages --> StyleCSS
 
@@ -83,9 +72,6 @@ flowchart LR
 
     Index --> AppJS
     Pages --> AppJS
-
-    Components --> SVGIcons
-    ComponentsCSS --> SVGIcons
 ```
 
 ---
@@ -98,3 +84,5 @@ flowchart LR
    Semua komponen UI menggunakan standar native browser Custom Elements `HTMLElement`. Tidak bergantung pada framework besar seperti React atau Vue, sehingga sangat ringan dan cepat dimuat.
 3. **No-Build Architecture**:
    Setiap modul JS ditulis dengan sintaks JavaScript ES Modules (`type="module"`), langsung dieksekusi secara instan oleh browser modern.
+4. **Zero Heavy Images**:
+   Ikon dirender secara vektor via Bootstrap Icons CDN dan QR Code dirender dinamis via HTML5 Canvas, membuat bobot aplikasi sangat ringan.
