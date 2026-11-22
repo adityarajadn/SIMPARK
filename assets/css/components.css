@@ -1,4 +1,17 @@
 
+simpark-input {
+  display: inline-block;
+  max-width: 100%;
+}
+@media (max-width: 576px) {
+  simpark-input {
+    width: 100%;
+  }
+  simpark-input .custom-input,
+  simpark-input .dropdown {
+    width: 100% !important;
+  }
+}
 .custom-input {
   display: inline-flex;
   align-items: center;
@@ -11,6 +24,8 @@
   font-size: 16px;
   color: var(--text-default);
   cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
   transition: border-color 0.15s ease-in-out;
 }
 .custom-input:focus, .custom-input:hover {
@@ -105,6 +120,10 @@
   color: var(--text-inverse);
 }
 
+simpark-badge {
+  display: inline-block;
+  flex-shrink: 0;
+}
 .badge-simpark {
   display: inline-flex;
   align-items: center;
@@ -153,6 +172,10 @@
   color: var(--text-inverse);
 }
 
+simpark-stat-tile {
+  display: block;
+  width: 100%;
+}
 .stat-tile {
   display: flex;
   flex-direction: column;
@@ -160,6 +183,7 @@
   padding: 20px;
   border-radius: 20px;
   flex: 1;
+  box-sizing: border-box;
 }
 .stat-tile.tone-blue {
   background-color: var(--action-hover);
@@ -185,6 +209,10 @@
   line-height: 32px;
 }
 
+simpark-alert {
+  display: block;
+  width: 100%;
+}
 .alert-simpark {
   display: flex;
   gap: 12px;
@@ -193,6 +221,8 @@
   border-radius: 20px;
   font-size: 14px;
   line-height: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .alert-simpark.tone-info {
   background-color: var(--status-info-surface);
@@ -241,6 +271,16 @@
   box-shadow: 0px 8px 16px rgba(23, 99, 176, 0.2);
 }
 
+@media (max-width: 576px) {
+  .hero-recommendation-box {
+    padding: 24px 20px;
+  }
+  .card-simpark {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+}
+
 .step-num {
   width: 28px;
   height: 28px;
@@ -280,3 +320,21 @@
   background-color: var(--status-success-surface);
   color: var(--status-success-text);
 }
+
+.simpark-custom-pin {
+  background: transparent;
+  border: none;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  font-family: var(--font-base);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  line-height: 1.4;
+  font-size: 13px;
+}
+
