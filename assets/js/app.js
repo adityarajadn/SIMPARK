@@ -48,24 +48,45 @@ export function initTicketCountdown() {
 
 export function initExploreFilters() {
   const filterChips = document.querySelectorAll('#explore-filter-chips .chip-simpark');
-  if (!filterChips.length) return;
+  const simparkMapEl = document.querySelector('simpark-map');
 
-  filterChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      filterChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      const filter = chip.getAttribute('data-filter');
+  if (filterChips.length) {
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const filter = chip.getAttribute('data-filter');
 
-      document.querySelectorAll('.explore-zone-card').forEach(card => {
-        const tone = card.getAttribute('data-tone');
-        if (filter === 'all' || filter === tone) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
+        document.querySelectorAll('.explore-zone-card').forEach(card => {
+          const tone = card.getAttribute('data-tone');
+          if (filter === 'all' || filter === tone) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
       });
     });
-  });
+  }
+
+  // Interaktivitas klik kartu zona di explore.html untuk update pin map
+  const zoneCards = document.querySelectorAll('simpark-zone-card');
+  if (zoneCards.length && simparkMapEl) {
+    zoneCards.forEach(cardWrapper => {
+      const anchor = cardWrapper.querySelector('a.explore-zone-card');
+      const innerCard = cardWrapper.querySelector('.card-simpark');
+      const zoneKey = cardWrapper.getAttribute('zone-key');
+
+      if (anchor) {
+        anchor.addEventListener('mouseenter', () => {
+          // Hover untuk preview posisi di peta
+          if (simparkMapEl.showZone) {
+            simparkMapEl.showZone(zoneKey);
+          }
+        });
+      }
+    });
+  }
 }
 
 export function initZoneDetail() {
@@ -77,6 +98,15 @@ export function initZoneDetail() {
     el.className = `badge-simpark ${zone.badgeClass}`;
     el.textContent = zone.statusText;
   });
+
+  const recBadge = document.getElementById('zone-detail-recommendation-badge');
+  if (recBadge) {
+    if (zoneKey === 'A') {
+      recBadge.classList.remove('d-none');
+    } else {
+      recBadge.classList.add('d-none');
+    }
+  }
 
   const slotEl = document.getElementById('zone-detail-slot');
   if (slotEl) slotEl.setAttribute('value', `${zone.slotAvailable} / ${zone.slotTotal}`);
@@ -91,82 +121,16 @@ export function initZoneDetail() {
   if (document.getElementById('breakdown-queue')) document.getElementById('breakdown-queue').textContent = zone.breakdown.queue;
   if (document.getElementById('breakdown-search')) document.getElementById('breakdown-search').textContent = zone.breakdown.searchSlot;
   if (document.getElementById('breakdown-walk')) document.getElementById('breakdown-walk').textContent = zone.breakdown.walk;
+
+  const confirmBtn = document.getElementById('btn-create-ticket-confirm');
+  if (confirmBtn) {
+    confirmBtn.href = `ticket.html?zone=${zoneKey}`;
+  }
 }
 
 export function initSweetAlertActions() {
-  if (typeof Swal === 'undefined') return;
-
-  const triggerBtn = document.querySelector('[data-bs-target="#confirmTicketModal"]');
-  if (triggerBtn) {
-    triggerBtn.removeAttribute('data-bs-toggle');
-    triggerBtn.removeAttribute('data-bs-target');
-    triggerBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const zoneKey = getQueryParam('zone') || 'A';
-      const zone = ZONES[zoneKey] || ZONES['A'];
-
-      Swal.fire({
-        title: 'Konfirmasi Buat Tiket?',
-        html: `
-          <div class="text-start p-2" style="font-size: 15px;">
-            <p class="mb-1"><strong>Tujuan:</strong> Gedung F — FILKOM</p>
-            <p class="mb-1"><strong>Zona:</strong> ${zone.fullName}</p>
-            <p class="mb-2"><strong>Masa Berlaku:</strong> 10 Menit</p>
-            <div class="alert alert-warning py-2 mb-0" style="font-size: 13px;">
-              <i class="bi bi-info-circle me-1"></i> Tiket bukan reservasi slot tetap. Slot berkurang setelah scan gerbang masuk.
-            </div>
-          </div>
-        `,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#1763B1',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: '<i class="bi bi-ticket-perforated me-1"></i> Buat Tiket Sekarang',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = `ticket.html?zone=${zoneKey}`;
-        }
-      });
-    });
-  }
-
-  const checkoutBtn = document.querySelector('[data-bs-target="#checkoutModal"]');
-  if (checkoutBtn) {
-    checkoutBtn.removeAttribute('data-bs-toggle');
-    checkoutBtn.removeAttribute('data-bs-target');
-    checkoutBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      Swal.fire({
-        title: 'Selesaikan & Keluar Parkir?',
-        html: `
-          <div class="text-start p-2" style="font-size: 15px;">
-            <p class="mb-1"><strong>Zona:</strong> Zona A — Teknik Utara</p>
-            <p class="mb-1"><strong>Durasi:</strong> 1 jam 12 menit</p>
-            <p class="mb-2 text-success"><strong>Biaya Parkir:</strong> Rp 0 (Gratis Mahasiswa UB)</p>
-          </div>
-        `,
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#1763B1',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: '<i class="bi bi-box-arrow-right me-1"></i> Ya, Selesai Keluar',
-        cancelButtonText: 'Tetap Parkir'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: 'Berhasil Keluar!',
-            text: 'Terima kasih telah menggunakan SIMPARK-UB.',
-            icon: 'success',
-            timer: 1800,
-            showConfirmButton: false
-          }).then(() => {
-            window.location.href = 'history.html';
-          });
-        }
-      });
-    });
-  }
+  // Tidak perlu meng-override modal Bootstrap HTML bawaan
+  // Biarkan modal Bootstrap asli yang kaya konteks tampil secara konsisten
 }
 
 export function initHistoryDataTable() {

@@ -320,6 +320,10 @@ simpark-alert {
   background-color: var(--status-success-surface);
   color: var(--status-success-text);
 }
+.modal-status-icon.info {
+  background-color: var(--action-soft);
+  color: var(--action-primary);
+}
 
 .simpark-custom-pin {
   background: transparent;

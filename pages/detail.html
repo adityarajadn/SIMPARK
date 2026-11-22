@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIMPARK-UB — Detail Zona</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -31,7 +27,7 @@
       <div class="d-flex flex-wrap align-items-center gap-3">
         <h1 class="title-h1 mb-0 zone-detail-name">Zona A — Parkir Teknik Utara</h1>
         <span class="badge-simpark badge-success-simpark zone-detail-badge">Tersedia · 45 slot</span>
-        <span class="badge-simpark" style="background-color: var(--action-soft); color: var(--text-link);">Rekomendasi</span>
+        <span class="badge-simpark d-none" id="zone-detail-recommendation-badge" style="background-color: var(--action-soft); color: var(--text-link);">Rekomendasi</span>
       </div>
     </div>
 
@@ -117,11 +113,13 @@
 
   <div class="modal fade" id="confirmTicketModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-      <div class="modal-content simpark-modal">
+      <div class="modal-content simpark-modal text-center">
         <div class="modal-body p-4">
-          <h2 class="title-h2 mb-3">Konfirmasi pembuatan tiket</h2>
+          <div class="modal-status-icon info"><i class="bi bi-ticket-perforated"></i></div>
+          <h2 class="title-h2 mb-2">Konfirmasi pembuatan tiket</h2>
+          <p class="text-caption mb-3">Tiket parkir akan diterbitkan dan berlaku selama 10 menit.</p>
 
-          <div class="card-simpark p-3 mb-3 bg-light border-0">
+          <div class="card-simpark p-3 mb-3 bg-light border-0 text-start">
             <div class="d-flex justify-content-between py-1">
               <span class="text-caption">Gedung tujuan</span>
               <strong>Gedung F — FILKOM</strong>
@@ -137,14 +135,14 @@
           </div>
 
           <simpark-alert
-            class="d-block mb-4"
+            class="d-block mb-4 text-start"
             tone="info"
             title="Tiket bukan reservasi slot"
             body="Slot berkurang hanya setelah scan masuk valid.">
           </simpark-alert>
 
           <div class="d-grid gap-2">
-            <a href="ticket.html" class="btn-simpark-primary w-100">Buat Tiket Sekarang</a>
+            <a href="ticket.html" class="btn-simpark-primary w-100" id="btn-create-ticket-confirm">Buat Tiket Sekarang</a>
             <button class="btn-simpark-secondary w-100" data-bs-dismiss="modal">Batal</button>
           </div>
         </div>
@@ -153,9 +151,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="module" src="../assets/js/components/index.js"></script>
   <script type="module" src="../assets/js/app.js"></script>
