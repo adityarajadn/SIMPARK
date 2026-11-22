@@ -51,11 +51,11 @@ SIMPARK/
 ├── README.md                    # Dokumentasi utama proyek
 ├── pages/                       # Folder halaman antarmuka (👉 Lihat pages/README.md)
 │   ├── README.md                # Dokumentasi alur, rincian halaman & keterkaitan
-│   ├── explore.html             # Halaman cari parkir & filter ketersediaan
+│   ├── explore.html             # Halaman cari parkir, live search & filter ketersediaan
 │   ├── detail.html              # Halaman detail zona tunggal modular (?zone=A/B/C)
 │   ├── ticket.html              # Halaman tiket QR & timer countdown 10 menit
-│   ├── active.html              # Halaman pemantauan parkir aktif
-│   └── history.html             # Halaman riwayat transaksi dengan DataTables
+│   ├── active.html              # Halaman status parkir aktif (kosong / aktif)
+│   └── history.html             # Halaman riwayat transaksi dengan DataTables & grid 2x2
 └── assets/                      # Folder sumber daya aplikasi (👉 Lihat assets/README.md)
     ├── README.md                # Dokumentasi arsitektur aset pendukung
     ├── css/                     # Styling modular CSS (👉 Lihat assets/css/README.md)
@@ -63,15 +63,22 @@ SIMPARK/
     │   ├── style.css            # Hub stylesheet utama
     │   ├── variables.css        # Design tokens: warna UB, status tone, font
     │   ├── layout.css           # Header navbar & responsive layout
-    │   ├── components.css       # Desain tombol, badge, card, modal, alert
+    │   ├── components.css       # Desain tombol, badge, card, modal, alert, grid mobile
     │   └── pages.css            # Styling khusus halaman tiket, Leaflet, dan tabel
     ├── js/                      # Kode logika & komponen (👉 Lihat assets/js/README.md)
     │   ├── README.md            # Dokumentasi arsitektur script & controller
     │   ├── data.js              # Objek data terpusat zona parkir (ZONES)
-    │   ├── app.js               # Event listener, controller URL query & DOM updater
+    │   ├── app.js               # Entry point penggabung seluruh modul
+    │   ├── modules/             # Modul logika JavaScript terpisah
+    │   │   ├── utils.js         # Query param parser & tanggal lokal real-time
+    │   │   ├── explore.js       # Filter, search & dynamic sorting
+    │   │   ├── zone-detail.js   # Dynamic DOM data binding detail zona
+    │   │   ├── ticket.js        # Generator QR Code & countdown timer 10 menit
+    │   │   ├── active-parking.js# State parkir aktif (kosong/aktif) & SweetAlert toast
+    │   │   └── history.js       # Inisialisasi DataTables riwayat
     │   └── components/          # Web Components (Custom Elements) kustom
     │       ├── index.js         # Registrasi Web Components
-    │       ├── simpark-header.js
+    │       ├── simpark-header.js# Navbar dengan menu Parkiran Aktif
     │       ├── simpark-badge.js
     │       ├── simpark-alert.js
     │       ├── simpark-stat-tile.js
@@ -110,4 +117,6 @@ flowchart TD
 1. **Leaflet.js & OpenStreetMap**: Peta kampus Universitas Brawijaya interaktif dengan penanda koordinat gedung dan zona.
 2. **DataTables.js**: Tabel riwayat transaksi dengan fitur sorting kolom, pagination, dan live search.
 3. **QRCode.js**: Generator QR Code berbasis kanvas instan untuk tiket parkir.
-4. **Bootstrap 5.3 & Bootstrap Icons**: Grid layout responsif dan ikon antarmuka modern.
+4. **SweetAlert2**: Notifikasi toast modern tanpa memblokir layar saat menyimpan lokasi.
+5. **EasyTimer.js**: Library live stopwatch yang menghitung durasi parkir aktif secara real-time.
+6. **Bootstrap 5.3 & Bootstrap Icons**: Grid layout responsif, modal dialog, dan koleksi ikon antarmuka modern.

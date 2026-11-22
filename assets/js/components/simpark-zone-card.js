@@ -23,7 +23,7 @@ export class SimparkZoneCard extends HTMLElement {
               <div class="text-overline" style="color: var(--text-link);">ZONA ${zoneKey}</div>
               <h3 class="title-h3 mb-0" style="font-size: 18px;">${name}</h3>
             </div>
-            <span class="badge-simpark ${badgeClass}">${statusText}</span>
+            <span class="fw-bold text-dark text-nowrap" style="font-size: 15px;">${slots} slot</span>
           </div>
           <div class="d-flex justify-content-between text-caption pt-2 border-top">
             <div>
@@ -31,8 +31,8 @@ export class SimparkZoneCard extends HTMLElement {
               <strong class="text-dark">${estimate}</strong>
             </div>
             <div>
-              <div>Slot</div>
-              <strong class="text-dark">${slots}</strong>
+              <div>Status</div>
+              <strong class="text-dark">${statusText.split('·')[0].trim()}</strong>
             </div>
             <div>
               <div>Antrean</div>

@@ -14,74 +14,91 @@
 </head>
 <body>
 
-  <simpark-header active="home" root-path="../"></simpark-header>
+  <simpark-header active="active" root-path="../"></simpark-header>
 
   <main class="app-content container-xxl mt-4">
 
-    <div class="card-simpark mb-4" style="background-color: var(--action-soft); border: 1px solid var(--border-focus);">
-      <div class="row align-items-center g-3">
-        <div class="col-lg-7">
-          <simpark-badge tone="success" label="Parkir Aktif" class="d-inline-block mb-2"></simpark-badge>
-          <h1 class="title-h1 mb-1" style="font-size: 28px;">Kendaraan tercatat di Zona A</h1>
-          <div class="text-caption">Masuk 10:12 · diverifikasi petugas · tiket TKT-001 sudah terpakai</div>
+    <!-- State Kosong / Belum Ada Parkir Aktif -->
+    <div id="active-parking-empty" class="d-none text-center py-5">
+      <div class="card-simpark p-5 mx-auto" style="max-width: 540px;">
+        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+          <i class="bi bi-p-circle text-muted" style="font-size: 40px;"></i>
         </div>
-        <div class="col-lg-5">
-          <div class="d-flex gap-3">
-            <simpark-stat-tile tone="light" label="Durasi parkir" value="1 j 12 m" id="active-parking-duration" style="background: white; border-radius: 20px;"></simpark-stat-tile>
-            <simpark-stat-tile tone="light" label="Estimasi biaya" value="Gratis (UB)" style="background: white; border-radius: 20px;"></simpark-stat-tile>
-          </div>
+        <h2 class="title-h2 mb-2">Belum ada parkir aktif</h2>
+        <p class="text-caption mb-4">Kamu belum memiliki tiket parkir yang aktif saat ini. Cari zona parkir dan buat tiket terlebih dahulu untuk mulai parkir.</p>
+        <div class="d-grid gap-2">
+          <a href="explore.html" class="btn-simpark-primary w-100">Cari Zona Parkir</a>
+          <a href="../index.html" class="btn-simpark-secondary w-100">Kembali ke Beranda</a>
         </div>
       </div>
     </div>
 
-    <div class="row g-4">
-
-      <div class="col-lg-8">
-        <div class="card-simpark h-100 d-flex flex-column justify-content-between">
-          <div>
-            <h3 class="title-h3 mb-3">Lokasi kendaraan</h3>
-            <simpark-map height="320px" zone="A" root-path="../" class="mb-3 d-block"></simpark-map>
+    <!-- State Ada Parkir Aktif -->
+    <div id="active-parking-content">
+      <div class="card-simpark mb-4" style="background-color: var(--action-soft); border: 1px solid var(--border-focus);">
+        <div class="row align-items-center g-3">
+          <div class="col-lg-7">
+            <h1 class="title-h1 mb-1" id="active-zone-title" style="font-size: 28px;">Kendaraan tercatat di Zona A</h1>
+            <div class="text-caption" id="active-zone-caption">Masuk 10:12 · diverifikasi petugas · tiket TKT-001 sudah terpakai</div>
           </div>
-
-          <div>
-            <label class="text-caption fw-medium mb-1">Catatan lokasi spesifik (opsional)</label>
-            <div class="d-flex gap-2">
-              <input type="text" class="custom-input flex-grow-1" id="input-specific-location" placeholder="Misal: Dekat pohon beringin sisi timur" value="Dekat tangga utama barat FILKOM">
-              <button class="btn-simpark-secondary" id="btn-save-location">Simpan Lokasi</button>
+          <div class="col-lg-5">
+            <div class="d-flex gap-3">
+              <simpark-stat-tile tone="light" label="Durasi parkir" value="0 j 0 m 0 d" id="active-parking-duration" style="background: white; border-radius: 20px;"></simpark-stat-tile>
+              <simpark-stat-tile tone="light" label="Estimasi biaya" value="Gratis (UB)" style="background: white; border-radius: 20px;"></simpark-stat-tile>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-4">
-        <div class="card-simpark h-100 d-flex flex-column justify-content-between">
-          <div>
-            <h3 class="title-h3 mb-3">Detail transaksi</h3>
-            <div class="d-flex justify-content-between py-2 border-bottom">
-              <span class="text-caption">ID tiket</span>
-              <strong>TKT-001</strong>
+      <div class="row g-4">
+
+        <div class="col-lg-8">
+          <div class="card-simpark h-100 d-flex flex-column justify-content-between">
+            <div>
+              <h3 class="title-h3 mb-3">Lokasi kendaraan</h3>
+              <simpark-map height="320px" zone="A" id="active-parking-map" root-path="../" class="mb-3 d-block"></simpark-map>
             </div>
-            <div class="d-flex justify-content-between py-2 border-bottom">
-              <span class="text-caption">Zona</span>
-              <strong>Zona A</strong>
-            </div>
-            <div class="d-flex justify-content-between py-2 border-bottom">
-              <span class="text-caption">Waktu masuk</span>
-              <strong>10:12</strong>
-            </div>
-            <div class="d-flex justify-content-between py-2 mb-4">
-              <span class="text-caption">Status</span>
-              <simpark-badge tone="success" label="Parkir aktif"></simpark-badge>
+
+            <div>
+              <label class="text-caption fw-medium mb-1">Catatan lokasi spesifik (opsional)</label>
+              <div class="d-flex flex-column flex-sm-row gap-2">
+                <input type="text" class="custom-input flex-grow-1" id="input-specific-location" placeholder="Misal: Dekat pohon beringin sisi timur" value="Dekat tangga utama barat FILKOM">
+                <button class="btn-simpark-secondary" id="btn-save-location">Simpan Lokasi</button>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div>
-            <button class="btn-simpark-primary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#exitSuccessModal">Keluar Parkir</button>
-            <simpark-alert
-              tone="info"
-              title="Verifikasi Keluar"
-              body="Petugas gerbang akan memverifikasi saat meninggalkan zona.">
-            </simpark-alert>
+        <div class="col-lg-4">
+          <div class="card-simpark h-100 d-flex flex-column justify-content-between">
+            <div>
+              <h3 class="title-h3 mb-3">Detail transaksi</h3>
+              <div class="d-flex justify-content-between py-2 border-bottom">
+                <span class="text-caption">ID tiket</span>
+                <strong id="active-ticket-id">TKT-001</strong>
+              </div>
+              <div class="d-flex justify-content-between py-2 border-bottom">
+                <span class="text-caption">Zona</span>
+                <strong id="active-zone-name">Zona A</strong>
+              </div>
+              <div class="d-flex justify-content-between py-2 border-bottom">
+                <span class="text-caption">Waktu masuk</span>
+                <strong id="active-entry-time">10:12</strong>
+              </div>
+              <div class="d-flex justify-content-between py-2 mb-4">
+                <span class="text-caption">Status</span>
+                <simpark-badge tone="success" label="Parkir aktif"></simpark-badge>
+              </div>
+            </div>
+
+            <div>
+              <button class="btn-simpark-primary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#exitSuccessModal">Keluar Parkir</button>
+              <simpark-alert
+                tone="info"
+                title="Verifikasi Keluar"
+                body="Petugas gerbang akan memverifikasi saat meninggalkan zona.">
+              </simpark-alert>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +116,7 @@
           <div class="card-simpark p-3 mb-3 bg-light border-0 text-start">
             <div class="d-flex justify-content-between py-1">
               <span class="text-caption">ID tiket</span>
-              <strong>TKT-001</strong>
+              <strong id="modal-exit-ticket-id">TKT-001</strong>
             </div>
             <div class="d-flex justify-content-between py-1">
               <span class="text-caption">Waktu keluar</span>
@@ -119,7 +136,7 @@
           </simpark-alert>
 
           <div class="d-grid gap-2">
-            <a href="history.html" class="btn-simpark-primary w-100">Lihat Riwayat</a>
+            <a href="history.html" class="btn-simpark-primary w-100" id="btn-exit-parking-confirm">Lihat Riwayat</a>
             <a href="../index.html" class="btn-simpark-secondary w-100">Kembali ke Beranda</a>
           </div>
         </div>
@@ -130,6 +147,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/easytimer.js@4.5.4/dist/easytimer.min.js"></script>
   <script type="module" src="../assets/js/components/index.js"></script>
   <script type="module" src="../assets/js/app.js"></script>
 </body>

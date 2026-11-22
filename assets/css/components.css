@@ -276,10 +276,59 @@ simpark-alert {
 @media (max-width: 576px) {
   .hero-recommendation-box {
     padding: 24px 20px;
+    border-radius: 20px;
   }
   .card-simpark {
     padding: 20px 16px;
     border-radius: 20px;
+  }
+  .title-h1 {
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+  .title-h2 {
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+  .title-h3 {
+    font-size: 16px !important;
+  }
+
+  /* Stat tile mobile simplifikasi: jadikan compact 2-column atau 3-column horizontal grid */
+  .stat-tile {
+    padding: 12px 14px;
+    border-radius: 14px;
+    gap: 2px;
+  }
+  .stat-tile .stat-label {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .stat-tile .stat-value {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  /* Chip scrollable horizontal pada mobile agar hemat vertikal */
+  #explore-filter-chips {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  #explore-filter-chips .chip-simpark {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Tombol aksi full-width pada mobile */
+  .btn-simpark-accent,
+  .btn-simpark-inverse,
+  .btn-simpark-primary,
+  .btn-simpark-secondary {
+    width: 100%;
+    text-align: center;
   }
 }
 

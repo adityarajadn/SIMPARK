@@ -74,14 +74,18 @@ flowchart TD
 ---
 
 ### 4. `active.html` (Parkir Aktif)
-- **Fungsi**: Menampilkan status saat kendaraan pengguna telah berhasil masuk dan tercatat di area parkir.
+- **Fungsi**: Menampilkan status saat kendaraan pengguna telah berhasil masuk dan tercatat di area parkir. Dapat diakses langsung melalui menu navigasi *"Parkiran Aktif"* di navbar.
+- **State Dinamis (Dua Kondisi)**:
+  - **State Kosong**: Tampil saat pengguna belum memiliki tiket atau belum scan masuk. Dilengkapi kartu panduan dan tombol menuju Cari Parkir.
+  - **State Aktif**: Otomatis aktif setelah menekan *"Scan Berhasil Masuk"*, menampilkan zona parkir yang ditempati, ID tiket unik, jam masuk, dan peta lokasi yang otomatis terpusat pada zona terkait.
 - **Fitur Interaktif**:
-  - Indikator durasi parkir berjalan.
-  - Peta lokasi area parkir aktif.
-  - Formulir catatan lokasi spesifik (contoh: baris / lantai / patokan tiang).
-  - Tombol tindakan *"Keluar Parkir"* yang memicu modal konfirmasi selesai parkir dan mengarahkan ke `history.html`.
+  - Live stopwatch durasi parkir yang terus bertambah detik demi detik.
+  - Peta lokasi area parkir aktif (`<simpark-map>`).
+  - Formulir catatan lokasi spesifik dengan tombol simpan memicu **Toast Notifikasi SweetAlert2**.
+  - Tombol tindakan *"Keluar Parkir"* yang memicu modal konfirmasi selesai parkir dan mereset sesi aktif di `localStorage`.
 - **Keterkaitan**:
   - Menggunakan komponen `<simpark-header active="active">`, `<simpark-map>`, dan `<simpark-stat-tile>`.
+  - Diatur oleh modul [`../assets/js/modules/active-parking.js`](../assets/js/modules/active-parking.js).
   - Terhubung ke `history.html` setelah proses parkir ditutup.
 
 ---
