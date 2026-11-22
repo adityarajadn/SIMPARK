@@ -10,10 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -27,16 +23,9 @@
         <div class="text-caption mb-1">Transaksi parkir simulasi milikmu</div>
         <h1 class="title-h1 mb-0">Riwayat Parkir</h1>
       </div>
-      <div class="d-flex flex-wrap gap-2 w-100 w-md-auto">
-        <simpark-input placeholder="Cari ID tiket atau zona" style-width="240px" root-path="../" class="flex-grow-1 flex-md-grow-0"></simpark-input>
-        <simpark-input
-          value="Bulan ini"
-          chevron="true"
-          options="Hari ini, Minggu ini, Bulan ini, Semua riwayat"
-          style-width="200px"
-          root-path="../"
-          class="flex-grow-1 flex-md-grow-0">
-        </simpark-input>
+      <div class="d-flex gap-2">
+        <simpark-input placeholder="Cari ID tiket atau zona" style-width="240px" root-path="../"></simpark-input>
+        <simpark-input value="Bulan ini" chevron="true" style-width="200px" root-path="../"></simpark-input>
       </div>
     </div>
 
@@ -55,77 +44,77 @@
       </div>
     </div>
 
-    <div class="card-simpark p-3 overflow-hidden mb-3">
-      <div class="table-responsive">
-        <table id="simpark-history-datatable" class="table table-hover align-middle w-100 mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>ID Tiket</th>
-              <th>Zona</th>
-              <th>Tanggal</th>
-              <th>Masuk</th>
-              <th>Keluar</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-001</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>08 Nov 2026</td>
-              <td>10:14</td>
-              <td>11:26</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-002</td>
-              <td>Zona B — FILKOM Selatan</td>
-              <td>06 Nov 2026</td>
-              <td>08:30</td>
-              <td>12:15</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-003</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>05 Nov 2026</td>
-              <td>13:00</td>
-              <td>16:45</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-004</td>
-              <td>Zona C — Gedung Rektorat</td>
-              <td>03 Nov 2026</td>
-              <td>09:10</td>
-              <td>10:20</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-005</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>01 Nov 2026</td>
-              <td>07:50</td>
-              <td>11:00</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-006</td>
-              <td>Zona B — FILKOM Selatan</td>
-              <td>28 Okt 2026</td>
-              <td>14:20</td>
-              <td>17:30</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="card-simpark p-0 overflow-hidden mb-3">
+
+      <div class="d-none d-md-flex table-history-header">
+        <div style="width: 20%;">ID Tiket</div>
+        <div style="width: 25%;">Zona</div>
+        <div style="width: 20%;">Tanggal</div>
+        <div style="width: 15%;">Masuk</div>
+        <div style="width: 10%;">Keluar</div>
+        <div style="width: 10%;">Status</div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-001</div>
+        <div style="width: 25%;">Zona A — Teknik Utara</div>
+        <div class="text-caption" style="width: 20%;">08 Nov 2026</div>
+        <div class="text-caption" style="width: 15%;">10:14</div>
+        <div class="text-caption" style="width: 10%;">11:26</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-002</div>
+        <div style="width: 25%;">Zona B — FILKOM Selatan</div>
+        <div class="text-caption" style="width: 20%;">06 Nov 2026</div>
+        <div class="text-caption" style="width: 15%;">08:30</div>
+        <div class="text-caption" style="width: 10%;">12:15</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-003</div>
+        <div style="width: 25%;">Zona A — Teknik Utara</div>
+        <div class="text-caption" style="width: 20%;">05 Nov 2026</div>
+        <div class="text-caption" style="width: 15%;">13:00</div>
+        <div class="text-caption" style="width: 10%;">16:45</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-004</div>
+        <div style="width: 25%;">Zona C — Gedung Rektorat</div>
+        <div class="text-caption" style="width: 20%;">03 Nov 2026</div>
+        <div class="text-caption" style="width: 15%;">09:10</div>
+        <div class="text-caption" style="width: 10%;">10:20</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-005</div>
+        <div style="width: 25%;">Zona A — Teknik Utara</div>
+        <div class="text-caption" style="width: 20%;">01 Nov 2026</div>
+        <div class="text-caption" style="width: 15%;">07:50</div>
+        <div class="text-caption" style="width: 10%;">11:00</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
+      </div>
+
+      <div class="table-history-row d-flex flex-wrap flex-md-nowrap align-items-center">
+        <div class="fw-medium" style="width: 20%;">TKT-006</div>
+        <div style="width: 25%;">Zona B — FILKOM Selatan</div>
+        <div class="text-caption" style="width: 20%;">28 Okt 2026</div>
+        <div class="text-caption" style="width: 15%;">14:20</div>
+        <div class="text-caption" style="width: 10%;">17:30</div>
+        <div style="width: 10%;"><simpark-badge tone="success" label="Selesai"></simpark-badge></div>
       </div>
     </div>
-  </main>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+    <div class="d-flex justify-content-between align-items-center text-caption">
+      <span>Menampilkan 6 dari 6 transaksi</span>
+      <simpark-chip label="1" active="true" style="height: 32px;"></simpark-chip>
+    </div>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="../assets/js/components/index.js"></script>

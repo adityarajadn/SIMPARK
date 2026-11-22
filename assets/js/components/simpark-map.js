@@ -1,90 +1,19 @@
 
 export class SimparkMap extends HTMLElement {
   connectedCallback() {
-    const height = this.getAttribute('height') || '100%';
-    const mapId = 'map-' + Math.random().toString(36).substring(2, 9);
-
-    this.style.display = 'block';
-    this.style.width = '100%';
-    this.style.height = height === '100%' ? '100%' : height;
+    const height = this.getAttribute('height') || '300px';
+    const rootPath = this.getAttribute('root-path') || './';
+    const detailPrefix = rootPath === './' ? 'pages/detail.html' : 'detail.html';
+    const mapImgPath = `${rootPath}assets/img/map-ub.png`;
 
     this.innerHTML = `
-      <div id="${mapId}" class="w-100 h-100 rounded-3 overflow-hidden position-relative" style="min-height: 280px; z-index: 1;"></div>
+      <div class="map-simulated-container" style="height: ${height};">
+        <img src="${mapImgPath}" class="map-bg" alt="Map UB" style="${height !== '300px' ? 'transform: scale(1.1);' : ''}">
+        <a href="${detailPrefix}?zone=A" class="map-marker text-decoration-none" style="top: 45%; left: 48%;" title="Zona A">A</a>
+        <a href="${detailPrefix}?zone=B" class="map-marker marker-b text-decoration-none" style="top: 60%; left: 70%;" title="Zona B">B</a>
+        <a href="${detailPrefix}?zone=C" class="map-marker marker-c text-decoration-none" style="top: 30%; left: 30%;" title="Zona C">C</a>
+      </div>
     `;
-
-    this.initLeaflet(mapId);
-  }
-
-  initLeaflet(containerId) {
-    const init = () => {
-      if (typeof L === 'undefined') {
-        setTimeout(init, 100);
-        return;
-      }
-
-      const ubCoords = [-7.9535, 112.6144];
-      const map = L.map(containerId, {
-        zoomControl: true,
-        scrollWheelZoom: true
-      }).setView(ubCoords, 16);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      const createMarkerIcon = (color, label) => L.divIcon({
-        className: 'simpark-custom-pin',
-        html: `<div style="background-color: ${color}; width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 13px;">${label}</div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14],
-        popupAnchor: [0, -14]
-      });
-
-      const locations = [
-        {
-          name: "Gedung F — FILKOM",
-          coords: [-7.9542, 112.6146],
-          color: "#1763B1",
-          label: "★",
-          popup: "<b>Gedung F — FILKOM</b><br><span class='text-muted'>Gedung Tujuan Anda</span>"
-        },
-        {
-          name: "Zona A — Parkir Teknik Utara",
-          coords: [-7.9525, 112.6138],
-          color: "#237A49",
-          label: "A",
-          popup: "<b>Zona A — Rekomendasi Utama</b><br>45 / 100 Slot Tersedia · Estimasi 8 mnt"
-        },
-        {
-          name: "Zona B — Parkir FIB Barat",
-          coords: [-7.9552, 112.6130],
-          color: "#B54708",
-          label: "B",
-          popup: "<b>Zona B — Alternatif</b><br>12 / 60 Slot Tersedia · Estimasi 11 mnt"
-        },
-        {
-          name: "Zona C — Parkir Samantha Krida",
-          coords: [-7.9530, 112.6162],
-          color: "#B42318",
-          label: "C",
-          popup: "<b>Zona C — Samantha Krida</b><br><span style='color: #B42318;'>Penuh (0 Slot)</span> · Estimasi 14 mnt"
-        }
-      ];
-
-      locations.forEach(loc => {
-        const marker = L.marker(loc.coords, {
-          icon: createMarkerIcon(loc.color, loc.label)
-        }).addTo(map);
-        marker.bindPopup(loc.popup);
-        if (loc.label === 'A') {
-          marker.openPopup();
-        }
-      });
-
-      setTimeout(() => map.invalidateSize(), 300);
-    };
-
-    init();
   }
 }
 customElements.define('simpark-map', SimparkMap);
