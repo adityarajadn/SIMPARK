@@ -10,22 +10,22 @@ Semua modul ditulis menggunakan standar **ES Modules** murni tanpa build tool, d
 
 ```mermaid
 flowchart TD
-    HTML["Halaman HTML<br>(detail.html, explore.html, dll)"]
-    ComponentsIndex["components/index.js<br>(Registrasi Custom Elements)"]
-    WebComponents["Custom Elements<br>(simpark-header, map, card, dll)"]
-    AppJS["app.js<br>(Event Handler & Logic Hub)"]
-    DataJS["data.js<br>(Master Data Zona A, B, C)"]
-    LeafletMap["Leaflet & OpenStreetMap<br>(simpark-map.js)"]
-    QRCodeLib["QRCode.js<br>(Tiket QR Generator)"]
+    HTML["Halaman HTML (detail.html, explore.html, dll)"]
+    ComponentsIndex["components/index.js (Registrasi Custom Elements)"]
+    WebComponents["Custom Elements (simpark-header, map, card, dll)"]
+    AppJS["app.js (Event Handler & Logic Hub)"]
+    DataJS["data.js (Master Data Zona A, B, C)"]
+    LeafletMap["Leaflet & OpenStreetMap (simpark-map.js)"]
+    QRCodeLib["QRCode.js (Tiket QR Generator)"]
 
-    HTML -->|type=module| ComponentsIndex
+    HTML -->|"type=module"| ComponentsIndex
     ComponentsIndex --> WebComponents
     WebComponents -.-> LeafletMap
 
-    HTML -->|type=module| AppJS
-    AppJS -->|import { ZONES }| DataJS
-    AppJS -->|Query URL Param ?zone=| HTML
-    AppJS -->|Update UI DOM| HTML
+    HTML -->|"type=module"| AppJS
+    AppJS -->|"import ZONES"| DataJS
+    AppJS -->|"Query URL Param: zone"| HTML
+    AppJS -->|"Update UI DOM"| HTML
     AppJS -.-> QRCodeLib
 ```
 
