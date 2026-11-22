@@ -27,7 +27,7 @@
         </div>
         <div class="col-lg-5">
           <div class="d-flex gap-3">
-            <simpark-stat-tile tone="light" label="Durasi parkir" value="1 j 12 m" style="background: white; border-radius: 20px;"></simpark-stat-tile>
+            <simpark-stat-tile tone="light" label="Durasi parkir" value="1 j 12 m" id="active-parking-duration" style="background: white; border-radius: 20px;"></simpark-stat-tile>
             <simpark-stat-tile tone="light" label="Estimasi biaya" value="Gratis (UB)" style="background: white; border-radius: 20px;"></simpark-stat-tile>
           </div>
         </div>
@@ -46,8 +46,8 @@
           <div>
             <label class="text-caption fw-medium mb-1">Catatan lokasi spesifik (opsional)</label>
             <div class="d-flex gap-2">
-              <input type="text" class="custom-input flex-grow-1" placeholder="Misal: Dekat pohon beringin sisi timur" value="Dekat tangga utama barat FILKOM">
-              <button class="btn-simpark-secondary" onclick="alert('Catatan lokasi tersimpan!')">Simpan Lokasi</button>
+              <input type="text" class="custom-input flex-grow-1" id="input-specific-location" placeholder="Misal: Dekat pohon beringin sisi timur" value="Dekat tangga utama barat FILKOM">
+              <button class="btn-simpark-secondary" id="btn-save-location">Simpan Lokasi</button>
             </div>
           </div>
         </div>

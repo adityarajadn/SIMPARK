@@ -257,6 +257,8 @@ simpark-alert {
 .card-simpark.interactive:hover {
   transform: translateY(-2px);
   box-shadow: 0px 12px 20px rgba(23, 99, 176, 0.15);
+  background-color: var(--action-soft);
+  border-color: var(--border-focus);
 }
 .card-simpark.selected {
   background-color: var(--action-soft);

@@ -26,36 +26,46 @@
       <div class="text-caption">Kapasitas diperbarui 1 menit lalu</div>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-      <div class="d-flex flex-wrap align-items-center gap-3 w-100 w-lg-auto">
+    <div class="row align-items-center g-3 mb-4">
+      <div class="col-lg-6 col-md-7">
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <simpark-input
+            placeholder="Cari gedung atau zona"
+            icon="search"
+            style-width="320px"
+            root-path="../"
+            class="flex-grow-1 flex-sm-grow-0"
+            id="explore-search-input">
+          </simpark-input>
 
-        <simpark-input placeholder="Cari gedung atau zona" icon="search" style-width="380px" root-path="../" class="w-100 w-md-auto"></simpark-input>
+          <div class="d-flex align-items-center gap-2">
+            <span class="text-caption fw-medium">Urutkan</span>
+            <simpark-input
+              value="Waktu tercepat"
+              chevron="true"
+              options="Waktu tercepat, Slot terbanyak, Jarak terdekat"
+              style-width="190px"
+              root-path="../"
+              id="explore-sort-input">
+            </simpark-input>
+          </div>
+        </div>
+      </div>
 
-        <div class="d-flex flex-wrap gap-2" id="explore-filter-chips">
+      <div class="col-lg-6 col-md-5">
+        <div class="d-flex flex-wrap gap-2 justify-content-md-end" id="explore-filter-chips">
           <simpark-chip label="Semua" active="true" data-filter="all"></simpark-chip>
           <simpark-chip label="Tersedia" active="false" data-filter="success"></simpark-chip>
           <simpark-chip label="Terbatas" active="false" data-filter="warning"></simpark-chip>
           <simpark-chip label="Penuh" active="false" data-filter="error"></simpark-chip>
         </div>
       </div>
-
-      <div class="d-flex align-items-center gap-2 w-100 w-sm-auto justify-content-between justify-content-sm-start">
-        <span class="text-caption fw-medium">Urutkan</span>
-        <simpark-input
-          value="Waktu tercepat"
-          chevron="true"
-          options="Waktu tercepat, Slot terbanyak, Jarak terdekat"
-          style-width="200px"
-          root-path="../"
-          class="flex-grow-1 flex-sm-grow-0">
-        </simpark-input>
-      </div>
     </div>
 
     <div class="row g-4">
 
-      <div class="col-lg-4 d-flex flex-column gap-3">
-        <div class="text-caption">3 zona ditemukan · urut waktu tercepat</div>
+      <div class="col-lg-4 d-flex flex-column gap-3" id="explore-zone-list">
+        <div class="text-caption" id="explore-zone-count">3 zona ditemukan · urut waktu tercepat</div>
 
         <simpark-zone-card
           zone-key="A"
@@ -65,7 +75,6 @@
           estimate="8 menit"
           slots="45 / 100"
           queue="Rendah"
-          selected="true"
           href="detail.html?zone=A">
         </simpark-zone-card>
 
