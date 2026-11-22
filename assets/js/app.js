@@ -1,22 +1,18 @@
-/**
- * Logika Interaktif & Simulasi SIMPARK-UB
- */
+
 import { ZONES } from './data.js';
 
-// Ambil parameter URL (misal: ?zone=B)
 export function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Inisialisasi QR Code Dinamis via QRCode.js
 export function initDynamicQRCode() {
   const qrContainer = document.getElementById('simpark-qrcode');
   if (!qrContainer || typeof QRCode === 'undefined') return;
 
   const zoneKey = getQueryParam('zone') || 'A';
   const ticketId = 'TKT-' + Math.floor(100 + Math.random() * 900);
-  
+
   qrContainer.innerHTML = '';
   new QRCode(qrContainer, {
     text: `SIMPARK-UB:${ticketId}:ZONE-${zoneKey}:TIMESTAMP-${Date.now()}`,
@@ -28,13 +24,12 @@ export function initDynamicQRCode() {
   });
 }
 
-// Countdown timer otomatis untuk tiket (ticket.html)
 export function initTicketCountdown() {
   const countdownEl = document.getElementById('ticket-countdown-timer');
   const progressEl = document.getElementById('ticket-progress-bar');
   if (!countdownEl) return;
 
-  let remaining = 582; // 09:42 default
+  let remaining = 582;
   const interval = setInterval(() => {
     if (remaining > 0) {
       remaining--;
@@ -51,7 +46,6 @@ export function initTicketCountdown() {
   }, 1000);
 }
 
-// Filter ketersediaan slot (explore.html)
 export function initExploreFilters() {
   const filterChips = document.querySelectorAll('#explore-filter-chips .chip-simpark');
   if (!filterChips.length) return;
@@ -61,7 +55,7 @@ export function initExploreFilters() {
       filterChips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       const filter = chip.getAttribute('data-filter');
-      
+
       document.querySelectorAll('.explore-zone-card').forEach(card => {
         const tone = card.getAttribute('data-tone');
         if (filter === 'all' || filter === tone) {
@@ -74,7 +68,6 @@ export function initExploreFilters() {
   });
 }
 
-// Menampilkan data zona dinamis pada detail.html (?zone=A|B|C)
 export function initZoneDetail() {
   const zoneKey = getQueryParam('zone') || 'A';
   const zone = ZONES[zoneKey] || ZONES['A'];
@@ -100,11 +93,9 @@ export function initZoneDetail() {
   if (document.getElementById('breakdown-walk')) document.getElementById('breakdown-walk').textContent = zone.breakdown.walk;
 }
 
-// Konfirmasi Interaktif SweetAlert2 untuk pembuatan tiket & keluar parkir
 export function initSweetAlertActions() {
   if (typeof Swal === 'undefined') return;
 
-  // Intercept tombol buat tiket di detail.html
   const triggerBtn = document.querySelector('[data-bs-target="#confirmTicketModal"]');
   if (triggerBtn) {
     triggerBtn.removeAttribute('data-bs-toggle');
@@ -140,7 +131,6 @@ export function initSweetAlertActions() {
     });
   }
 
-  // Intercept tombol keluar parkir di active.html
   const checkoutBtn = document.querySelector('[data-bs-target="#checkoutModal"]');
   if (checkoutBtn) {
     checkoutBtn.removeAttribute('data-bs-toggle');
@@ -179,7 +169,6 @@ export function initSweetAlertActions() {
   }
 }
 
-// Inisialisasi DataTables pada Tabel Riwayat
 export function initHistoryDataTable() {
   const table = document.getElementById('simpark-history-datatable');
   if (!table || typeof $ === 'undefined' || !$.fn.DataTable) return;
@@ -201,7 +190,6 @@ export function initHistoryDataTable() {
   });
 }
 
-// Inisialisasi otomatis saat DOM siap
 document.addEventListener('DOMContentLoaded', () => {
   initTicketCountdown();
   initExploreFilters();

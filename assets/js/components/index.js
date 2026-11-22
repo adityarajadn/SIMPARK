@@ -1,6 +1,4 @@
-/**
- * SIMPARK-UB Web Components Registry
- */
+
 import './simpark-header.js';
 import './simpark-badge.js';
 import './simpark-alert.js';

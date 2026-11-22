@@ -1,4 +1,4 @@
-// <simpark-map height="100%"></simpark-map>
+
 export class SimparkMap extends HTMLElement {
   connectedCallback() {
     const height = this.getAttribute('height') || '100%';
@@ -12,7 +12,6 @@ export class SimparkMap extends HTMLElement {
       <div id="${mapId}" class="w-100 h-100 rounded-3 overflow-hidden position-relative" style="min-height: 280px; z-index: 1;"></div>
     `;
 
-    // Pastikan Leaflet ter-load sebelum inisialisasi
     this.initLeaflet(mapId);
   }
 
@@ -23,19 +22,16 @@ export class SimparkMap extends HTMLElement {
         return;
       }
 
-      // Titik Tengah Universitas Brawijaya
       const ubCoords = [-7.9535, 112.6144];
       const map = L.map(containerId, {
         zoomControl: true,
         scrollWheelZoom: true
       }).setView(ubCoords, 16);
 
-      // OpenStreetMap Tiles
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // Marker Icon Generator
       const createMarkerIcon = (color, label) => L.divIcon({
         className: 'simpark-custom-pin',
         html: `<div style="background-color: ${color}; width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 13px;">${label}</div>`,
@@ -44,33 +40,32 @@ export class SimparkMap extends HTMLElement {
         popupAnchor: [0, -14]
       });
 
-      // Markers Data
       const locations = [
         {
           name: "Gedung F — FILKOM",
           coords: [-7.9542, 112.6146],
-          color: "#1763B1", // Biru UB
+          color: "#1763B1",
           label: "★",
           popup: "<b>Gedung F — FILKOM</b><br><span class='text-muted'>Gedung Tujuan Anda</span>"
         },
         {
           name: "Zona A — Parkir Teknik Utara",
           coords: [-7.9525, 112.6138],
-          color: "#237A49", // Hijau
+          color: "#237A49",
           label: "A",
           popup: "<b>Zona A — Rekomendasi Utama</b><br>45 / 100 Slot Tersedia · Estimasi 8 mnt"
         },
         {
           name: "Zona B — Parkir FIB Barat",
           coords: [-7.9552, 112.6130],
-          color: "#B54708", // Kuning/Oranye
+          color: "#B54708",
           label: "B",
           popup: "<b>Zona B — Alternatif</b><br>12 / 60 Slot Tersedia · Estimasi 11 mnt"
         },
         {
           name: "Zona C — Parkir Samantha Krida",
           coords: [-7.9530, 112.6162],
-          color: "#B42318", // Merah
+          color: "#B42318",
           label: "C",
           popup: "<b>Zona C — Samantha Krida</b><br><span style='color: #B42318;'>Penuh (0 Slot)</span> · Estimasi 14 mnt"
         }
@@ -86,7 +81,6 @@ export class SimparkMap extends HTMLElement {
         }
       });
 
-      // Fix render size if parent was resizing
       setTimeout(() => map.invalidateSize(), 300);
     };
 

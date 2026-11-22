@@ -1,4 +1,4 @@
-// <simpark-zone-card zone-key="B" name="..." status-tone="warning" status-text="Terbatas · 12 slot" estimate="9 menit" slots="12 / 80" queue="Sedang" href="detail.html?zone=B" selected="false"></simpark-zone-card>
+
 export class SimparkZoneCard extends HTMLElement {
   connectedCallback() {
     const zoneKey = this.getAttribute('zone-key') || 'A';

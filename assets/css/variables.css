@@ -2,32 +2,32 @@
   --surface-canvas: #f7f9fc;
   --surface-default: #ffffff;
   --surface-subtle: #edf2f7;
-  
+
   --border-default: #dce3ec;
   --border-control: #8796a8;
   --border-focus: #3683cf;
-  
+
   --text-default: #182436;
   --text-muted: #52647a;
   --text-link: #145393;
   --text-inverse: #ffffff;
-  
+
   --action-primary: #1763b1;
   --action-hover: #145393;
   --action-soft: #eaf3ff;
-  
+
   --accent-default: #ffcc33;
   --accent-soft: #fff8d6;
-  
+
   --status-success-surface: #eaf7ef;
   --status-success-text: #237a49;
-  
+
   --status-warning-surface: #fff4da;
   --status-warning-text: #9a6700;
-  
+
   --status-error-surface: #fdedea;
   --status-error-text: #b42318;
-  
+
   --status-info-surface: #eaf3ff;
   --status-info-text: #145393;
 }
@@ -43,7 +43,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography Helpers */
 .title-h1 {
   font-size: 32px;
   font-weight: 700;

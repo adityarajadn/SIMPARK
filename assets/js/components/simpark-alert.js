@@ -1,4 +1,4 @@
-// <simpark-alert tone="info|warning" title="..." body="..."></simpark-alert>
+
 export class SimparkAlert extends HTMLElement {
   connectedCallback() {
     const tone = this.getAttribute('tone') || 'info';
@@ -7,7 +7,6 @@ export class SimparkAlert extends HTMLElement {
 
     this.innerHTML = `
       <div class="alert-simpark tone-${tone} h-100">
-        <div class="accent-bar"></div>
         <div>
           <div class="alert-title">${title}</div>
           <p class="alert-body">${body}</p>

@@ -1,4 +1,4 @@
-/* 1. Peta Google Maps */
+
 simpark-map {
   display: block;
   width: 100%;
@@ -20,7 +20,6 @@ simpark-map {
   border: 0;
 }
 
-/* 2. Kartu Tiket & QR */
 .ticket-qr-card {
   background: var(--surface-default);
   border-radius: 24px;
@@ -52,7 +51,6 @@ simpark-map {
   height: 100%;
 }
 
-/* 3. Tabel Riwayat */
 .table-history-header {
   background-color: var(--surface-subtle);
   font-size: 14px;

@@ -1,7 +1,3 @@
-/**
- * Data Simulasi SIMPARK-UB
- * Seluruh data dummy zona parkir, kuota slot, estimasi waktu, dan tiket
- */
 
 export const ZONES = {
   A: {

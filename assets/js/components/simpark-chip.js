@@ -1,4 +1,4 @@
-// <simpark-chip label="Semua" active="true|false" data-filter="all"></simpark-chip>
+
 export class SimparkChip extends HTMLElement {
   connectedCallback() {
     const label = this.getAttribute('label') || '';

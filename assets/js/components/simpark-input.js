@@ -1,4 +1,4 @@
-// <simpark-input placeholder="..." value="..." icon="search" chevron="true" style-width="360px" options="Waktu tercepat,Slot terbanyak,Jarak terdekat"></simpark-input>
+
 export class SimparkInput extends HTMLElement {
   connectedCallback() {
     const placeholder = this.getAttribute('placeholder') || '';
@@ -17,7 +17,7 @@ export class SimparkInput extends HTMLElement {
     const chevronHtml = hasChevron ? `<i class="bi bi-chevron-down text-muted ms-1" style="font-size: 14px;"></i>` : '';
 
     if (href) {
-      // Input berfungsi sebagai Link / Navigasi
+
       this.innerHTML = `
         <a href="${href}" class="custom-input text-decoration-none" style="width: ${width}; max-width: 100%;">
           ${iconHtml}
@@ -26,17 +26,17 @@ export class SimparkInput extends HTMLElement {
         </a>
       `;
     } else if (hasChevron && optionsAttr) {
-      // Input bertindak sebagai Dropdown interaktif
+
       const optionsList = optionsAttr.split(',').map(s => s.trim());
       const dropdownId = 'dropdown-' + Math.random().toString(36).substring(2, 9);
 
       this.innerHTML = `
         <div class="dropdown d-inline-block" style="width: ${width}; max-width: 100%;">
-          <button 
-            class="custom-input w-100 text-start bg-white d-flex align-items-center justify-content-between border-1" 
-            type="button" 
-            id="${dropdownId}" 
-            data-bs-toggle="dropdown" 
+          <button
+            class="custom-input w-100 text-start bg-white d-flex align-items-center justify-content-between border-1"
+            type="button"
+            id="${dropdownId}"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
             style="width: 100%;">
             ${iconHtml}
@@ -55,7 +55,6 @@ export class SimparkInput extends HTMLElement {
         </div>
       `;
 
-      // Event listener saat opsi dipilih
       const labelEl = this.querySelector('.selected-label');
       this.querySelectorAll('.dropdown-item').forEach(item => {
         item.addEventListener('click', (e) => {
@@ -65,12 +64,11 @@ export class SimparkInput extends HTMLElement {
           this.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active', 'fw-medium'));
           item.classList.add('active', 'fw-medium');
 
-          // Trigger custom event change jika diperlukan
           this.dispatchEvent(new CustomEvent('change', { detail: { value: selectedVal } }));
         });
       });
     } else {
-      // Input teks biasa
+
       this.innerHTML = `
         <div class="custom-input" style="width: ${width}; max-width: 100%;">
           ${iconHtml}

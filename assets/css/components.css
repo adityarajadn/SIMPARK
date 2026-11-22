@@ -1,4 +1,4 @@
-/* Custom Input / Dropdown Pill */
+
 simpark-input {
   display: inline-block;
   max-width: 100%;
@@ -32,7 +32,6 @@ simpark-input {
   border-color: var(--border-focus);
 }
 
-/* Custom Buttons */
 .btn-simpark-accent {
   background-color: var(--accent-default);
   color: var(--text-default);
@@ -121,7 +120,6 @@ simpark-input {
   color: var(--text-inverse);
 }
 
-/* Badges */
 simpark-badge {
   display: inline-block;
   flex-shrink: 0;
@@ -149,7 +147,6 @@ simpark-badge {
   color: var(--status-error-text);
 }
 
-/* Chips */
 .chip-simpark {
   display: inline-flex;
   align-items: center;
@@ -175,7 +172,6 @@ simpark-badge {
   color: var(--text-inverse);
 }
 
-/* Stat Tile */
 simpark-stat-tile {
   display: block;
   width: 100%;
@@ -213,7 +209,6 @@ simpark-stat-tile {
   line-height: 32px;
 }
 
-/* Alert Component */
 simpark-alert {
   display: block;
   width: 100%;
@@ -229,17 +224,8 @@ simpark-alert {
   width: 100%;
   box-sizing: border-box;
 }
-.alert-simpark .accent-bar {
-  width: 4px;
-  align-self: stretch;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
 .alert-simpark.tone-info {
   background-color: var(--status-info-surface);
-}
-.alert-simpark.tone-info .accent-bar {
-  background-color: var(--status-info-text);
 }
 .alert-simpark.tone-info .alert-title {
   color: var(--status-info-text);
@@ -247,9 +233,6 @@ simpark-alert {
 }
 .alert-simpark.tone-warning {
   background-color: var(--accent-soft);
-}
-.alert-simpark.tone-warning .accent-bar {
-  background-color: var(--status-warning-text);
 }
 .alert-simpark.tone-warning .alert-title {
   color: var(--status-warning-text);
@@ -260,7 +243,6 @@ simpark-alert {
   margin: 0;
 }
 
-/* Cards & Containers */
 .card-simpark {
   background: var(--surface-default);
   border-radius: 24px;
@@ -281,7 +263,6 @@ simpark-alert {
   border: 2px solid var(--border-focus);
 }
 
-/* Hero Recommendation Box */
 .hero-recommendation-box {
   background-color: var(--action-primary);
   border-radius: 24px;
@@ -300,7 +281,6 @@ simpark-alert {
   }
 }
 
-/* Step Circles */
 .step-num {
   width: 28px;
   height: 28px;
@@ -315,7 +295,6 @@ simpark-alert {
   flex-shrink: 0;
 }
 
-/* Modals */
 .modal-content.simpark-modal {
   border-radius: 24px;
   border: none;
@@ -342,7 +321,6 @@ simpark-alert {
   color: var(--status-success-text);
 }
 
-/* Leaflet Custom Pin Markers & Popup */
 .simpark-custom-pin {
   background: transparent;
   border: none;

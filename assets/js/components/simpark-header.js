@@ -1,10 +1,9 @@
-// <simpark-header active="home|explore|history" root-path="./|../"></simpark-header>
+
 export class SimparkHeader extends HTMLElement {
   connectedCallback() {
     const active = this.getAttribute('active') || 'home';
     const rootPath = this.getAttribute('root-path') || './';
-    
-    // determine URLs based on rootPath
+
     const homeUrl = rootPath === './' ? 'index.html' : '../index.html';
     const exploreUrl = rootPath === './' ? 'pages/explore.html' : 'explore.html';
     const historyUrl = rootPath === './' ? 'pages/history.html' : 'history.html';
@@ -25,11 +24,11 @@ export class SimparkHeader extends HTMLElement {
           </nav>
 
           <!-- Mobile Hamburger Toggle Button -->
-          <button class="navbar-toggler-simpark d-flex d-md-none align-items-center justify-content-center" 
-                  type="button" 
-                  data-bs-toggle="offcanvas" 
-                  data-bs-target="#mobileSidebar" 
-                  aria-controls="mobileSidebar" 
+          <button class="navbar-toggler-simpark d-flex d-md-none align-items-center justify-content-center"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#mobileSidebar"
+                  aria-controls="mobileSidebar"
                   aria-label="Toggle navigation">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
