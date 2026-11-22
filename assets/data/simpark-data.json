@@ -1,0 +1,120 @@
+{
+  "gedung": [
+    {
+      "id": "F-FILKOM",
+      "nama": "Gedung F — FILKOM",
+      "koordinat": {
+        "latitude": -7.9542,
+        "longitude": 112.6146
+      }
+    },
+    {
+      "id": "REKTORAT",
+      "nama": "Gedung Rektorat",
+      "koordinat": {
+        "latitude": -7.9528,
+        "longitude": 112.6162
+      }
+    }
+  ],
+  "zona": [
+    {
+      "id": "A",
+      "nama": "Parkir Teknik Utara",
+      "kapasitasTotal": 100,
+      "slotTersediaAwal": 45,
+      "akses": [
+        "mahasiswa"
+      ],
+      "keandalanData": 90,
+      "titikMasuk": {
+        "latitude": -7.9525,
+        "longitude": 112.6138
+      }
+    },
+    {
+      "id": "B",
+      "nama": "Parkir FILKOM Selatan",
+      "kapasitasTotal": 80,
+      "slotTersediaAwal": 12,
+      "akses": [
+        "mahasiswa"
+      ],
+      "keandalanData": 80,
+      "titikMasuk": {
+        "latitude": -7.9552,
+        "longitude": 112.613
+      }
+    },
+    {
+      "id": "C",
+      "nama": "Parkir Gedung Rektorat",
+      "kapasitasTotal": 60,
+      "slotTersediaAwal": 0,
+      "akses": [
+        "mahasiswa"
+      ],
+      "keandalanData": 85,
+      "titikMasuk": {
+        "latitude": -7.953,
+        "longitude": 112.6162
+      }
+    }
+  ],
+  "estimasi": [
+    {
+      "zonaId": "A",
+      "gedungId": "F-FILKOM",
+      "keZonaMenit": 3,
+      "antreMenit": 1,
+      "cariSlotMenit": 2,
+      "jalanKakiMenit": 2,
+      "jarakKeGedungMeter": 150
+    },
+    {
+      "zonaId": "B",
+      "gedungId": "F-FILKOM",
+      "keZonaMenit": 4,
+      "antreMenit": 2,
+      "cariSlotMenit": 2,
+      "jalanKakiMenit": 1,
+      "jarakKeGedungMeter": 80
+    },
+    {
+      "zonaId": "C",
+      "gedungId": "F-FILKOM",
+      "keZonaMenit": 4,
+      "antreMenit": 4,
+      "cariSlotMenit": 1,
+      "jalanKakiMenit": 2,
+      "jarakKeGedungMeter": 185
+    },
+    {
+      "zonaId": "A",
+      "gedungId": "REKTORAT",
+      "keZonaMenit": 3,
+      "antreMenit": 1,
+      "cariSlotMenit": 2,
+      "jalanKakiMenit": 9,
+      "jarakKeGedungMeter": 520
+    },
+    {
+      "zonaId": "B",
+      "gedungId": "REKTORAT",
+      "keZonaMenit": 4,
+      "antreMenit": 1,
+      "cariSlotMenit": 1,
+      "jalanKakiMenit": 3,
+      "jarakKeGedungMeter": 215
+    },
+    {
+      "zonaId": "C",
+      "gedungId": "REKTORAT",
+      "keZonaMenit": 4,
+      "antreMenit": 4,
+      "cariSlotMenit": 1,
+      "jalanKakiMenit": 1,
+      "jarakKeGedungMeter": 55
+    }
+  ]
+}

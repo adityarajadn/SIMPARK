@@ -24,123 +24,61 @@
   <simpark-header active="home" root-path="./"></simpark-header>
 
   <!-- Konten Beranda (D01_Home) -->
-  <main class="app-content container-xxl mt-4">
-    <!-- Title Row -->
-    <div class="d-flex flex-wrap align-items-end justify-content-between mb-4 gap-3">
-      <div>
-        <div class="text-caption mb-1">Senin, 9 November 2026</div>
-        <h1 class="title-h1 mb-0">Halo, mau parkir ke mana hari ini?</h1>
+  <main class="app-content container-xxl mt-4" data-page="home">
+    <p id="app-status" class="alert alert-info" role="status">Memuat data parkir…</p>
+    <noscript><p>Aktifkan JavaScript untuk menjalankan simulasi SIMPARK-UB.</p></noscript>
+    <div data-content hidden>
+      <div class="page-heading mb-3">
+        <div>
+          <p class="text-caption mb-1">Simulasi konteks jadwal SIAM UB</p>
+          <h1 class="title-h1 mb-0">Halo, mau parkir ke mana hari ini?</h1>
+        </div>
+        <div class="simpark-field">
+          <label for="destination">Gedung tujuan</label>
+          <select id="destination" class="form-select custom-input"></select>
+        </div>
       </div>
-      <div class="d-flex flex-column align-items-start w-100 w-md-auto">
-        <label class="text-caption fw-medium mb-1">Gedung tujuan</label>
-        <simpark-input value="Gedung F — FILKOM" icon="search" chevron="true" style-width="360px" href="pages/explore.html" root-path="./" class="w-100 w-md-auto"></simpark-input>
-      </div>
-    </div>
 
-    <!-- Hero Row -->
-    <div class="row g-4 mb-4">
-      <!-- Rekomendasi Utama -->
-      <div class="col-lg-7">
-        <div class="hero-recommendation-box h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <div>
-                <div class="text-overline" style="color: var(--accent-default);">REKOMENDASI TERBAIK</div>
-                <h2 class="title-h1 text-white mt-1 mb-0">Zona A — Parkir Teknik Utara</h2>
-              </div>
-              <simpark-badge tone="success" label="Tersedia · 45 slot"></simpark-badge>
+      <a id="resume-parking" class="btn-simpark-secondary mb-3" hidden></a>
+      <div class="row g-3 mb-4">
+        <div class="col-lg-7">
+          <section class="hero-recommendation-box h-100" aria-labelledby="recommendation-title">
+            <p id="recommendation-label" class="text-overline recommendation-label mb-1">Rekomendasi terbaik</p>
+            <div class="zone-card-heading">
+              <h2 id="recommendation-title" class="title-h1 text-white mb-2"></h2>
+              <span id="recommendation-capacity" class="badge-simpark" hidden></span>
             </div>
-            <p class="text-white mt-3" style="font-size: 16px; opacity: 0.95;">
-              Dipilih karena waktu total tercepat ke Gedung F FILKOM, slot masih lega, dan antrean rendah.
-            </p>
-
-            <!-- Stat Tiles (Components) -->
-            <div class="row g-3 my-2">
-              <div class="col-sm-4">
-                <simpark-stat-tile tone="blue" label="Estimasi total" value="8 menit"></simpark-stat-tile>
-              </div>
-              <div class="col-sm-4">
-                <simpark-stat-tile tone="blue" label="Slot tersedia" value="45 / 100"></simpark-stat-tile>
-              </div>
-              <div class="col-sm-4">
-                <simpark-stat-tile tone="blue" label="Antrean" value="Rendah"></simpark-stat-tile>
-              </div>
+            <p id="recommendation-reason" class="mb-3"></p>
+            <div class="action-row mb-3">
+              <a id="recommendation-link" class="btn-simpark-accent">Lihat Detail Zona</a>
+              <a id="manual-link" class="btn-simpark-inverse" href="pages/explore.html">Pilih Parkir Manual</a>
             </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="d-flex flex-wrap gap-3 mt-4">
-            <a href="pages/detail.html?zone=A" class="btn-simpark-accent">Lihat Detail Zona</a>
-            <a href="pages/explore.html" class="btn-simpark-inverse">Pilih Parkir Manual</a>
-          </div>
+            <dl id="recommendation-metrics" class="recommendation-metrics mb-0">
+              <div class="stat-tile tone-blue"><dt>Estimasi</dt><dd id="recommendation-time"></dd></div>
+              <div class="stat-tile tone-blue"><dt>Slot tersedia</dt><dd id="recommendation-slots"></dd></div>
+              <div class="stat-tile tone-blue"><dt>Antrean</dt><dd id="recommendation-queue"></dd></div>
+            </dl>
+          </section>
+        </div>
+        <div class="col-lg-5">
+          <section class="card-simpark h-100" aria-labelledby="home-map-title">
+            <h2 id="home-map-title" class="title-h3 mb-3">Posisi zona</h2>
+            <simpark-map height="320px"></simpark-map>
+          </section>
         </div>
       </div>
 
-      <!-- Posisi Zona (Peta Google Maps) -->
-      <div class="col-lg-5">
-        <div class="card-simpark h-100 d-flex flex-column">
-          <h3 class="title-h3 mb-3">Posisi zona</h3>
-          <div class="flex-grow-1" style="min-height: 320px;">
-            <simpark-map height="100%"></simpark-map>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Alternatif Row -->
-    <div class="mt-4">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h2 class="title-h2 mb-0">Alternatif zona</h2>
-        <a href="pages/explore.html" class="text-decoration-none fw-medium" style="color: var(--text-link); font-size: 14px;">Lihat semua zona →</a>
-      </div>
-
-      <div class="row g-4">
-        <!-- Zone Card B (Component) -->
-        <div class="col-lg-4">
-          <simpark-zone-card 
-            zone-key="B" 
-            name="Parkir FILKOM Selatan" 
-            status-tone="warning" 
-            status-text="Terbatas · 12 slot" 
-            estimate="9 menit" 
-            slots="12 / 80" 
-            queue="Sedang" 
-            href="pages/detail.html?zone=B">
-          </simpark-zone-card>
-        </div>
-
-        <!-- Zone Card C (Component) -->
-        <div class="col-lg-4">
-          <simpark-zone-card 
-            zone-key="C" 
-            name="Parkir Gedung Rektorat" 
-            status-tone="error" 
-            status-text="Penuh · 0 slot" 
-            estimate="11 menit" 
-            slots="0 / 60" 
-            queue="Tinggi" 
-            href="pages/detail.html?zone=C">
-          </simpark-zone-card>
-        </div>
-
-        <!-- Alert Component -->
-        <div class="col-lg-4">
-          <simpark-alert 
-            tone="info" 
-            title="Rekomendasi diperbarui otomatis" 
-            body="Ubah gedung tujuan untuk menghitung ulang zona terbaik.">
-          </simpark-alert>
-        </div>
-      </div>
+      <section id="alternatives" aria-labelledby="alternatives-title">
+        <h2 id="alternatives-title" class="title-h2 mb-3">Alternatif zona</h2>
+        <div id="alternative-zones" class="zone-card-grid"></div>
+      </section>
     </div>
   </main>
 
-  <!-- Bootstrap 5 JS (CDN) -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Leaflet JS (CDN) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <!-- Components Module -->
-  <script type="module" src="assets/js/components/index.js"></script>
   <!-- App Logic -->
   <script type="module" src="assets/js/app.js"></script>
 </body>

@@ -24,152 +24,73 @@
   <simpark-header active="explore" root-path="../"></simpark-header>
 
   <!-- Konten Detail Zona (D03_ZoneDetail) -->
-  <main class="app-content container-xxl mt-4">
-    <!-- Breadcrumbs & Title -->
-    <div class="mb-4">
-      <div class="text-caption mb-1">
-        <a href="../index.html" class="text-decoration-none text-muted">Beranda</a> / 
-        <a href="explore.html" class="text-decoration-none text-muted">Cari Parkir</a> / 
-        <span class="text-dark fw-medium">Detail Zona</span>
+  <main class="app-content container-xxl mt-4" data-page="detail">
+    <p id="app-status" class="alert alert-info" role="status">Memuat data parkir…</p>
+    <noscript><p>Aktifkan JavaScript untuk menjalankan simulasi SIMPARK-UB.</p></noscript>
+    <div data-content hidden>
+      <a id="back-to-explore" href="explore.html" class="d-inline-block mb-3">← Cari Parkir</a>
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <h1 id="detail-zone" class="title-h1 mb-0"></h1>
+        <span id="detail-capacity" class="badge-simpark"></span>
       </div>
-      <div class="d-flex flex-wrap align-items-center gap-3">
-        <h1 class="title-h1 mb-0 zone-detail-name">Zona A — Parkir Teknik Utara</h1>
-        <span class="badge-simpark badge-success-simpark zone-detail-badge">Tersedia · 45 slot</span>
-        <span class="badge-simpark" style="background-color: var(--action-soft); color: var(--text-link);">Rekomendasi</span>
-      </div>
-    </div>
-
-    <div class="row g-4">
-      <!-- Left: Map & Time Breakdown -->
-      <div class="col-lg-7 d-flex flex-column gap-4">
-        <!-- Mini Map Component -->
-        <simpark-map height="300px" root-path="../"></simpark-map>
-
-        <!-- Rincian Estimasi Waktu Card -->
-        <div class="card-simpark">
-          <h3 class="title-h3 mb-3">Rincian estimasi waktu</h3>
-          
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Perjalanan menuju zona</span>
-            <strong id="breakdown-travel">3 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Antrean masuk</span>
-            <strong id="breakdown-queue">1 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Mencari slot</span>
-            <strong id="breakdown-search">2 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Jalan kaki ke Gedung F</span>
-            <strong id="breakdown-walk">2 menit</strong>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center pt-3">
-            <span class="fw-medium">Estimasi total</span>
-            <h2 class="title-h2 mb-0" style="color: var(--action-primary);" id="zone-detail-total-time">8 menit</h2>
-          </div>
+      <div id="detail-content" class="row g-3" hidden>
+        <div class="col-lg-5 order-lg-2">
+          <section class="card-simpark" aria-labelledby="summary-title">
+            <h2 id="summary-title" class="title-h3 mb-3">Ringkasan pilihan</h2>
+            <dl class="simpark-metadata">
+              <div><dt>Gedung tujuan</dt><dd id="detail-destination"></dd></div>
+              <div><dt>Slot tersedia</dt><dd id="zone-detail-slot"></dd></div>
+              <div><dt>Antrean</dt><dd id="zone-detail-queue"></dd></div>
+              <div><dt>Masa berlaku tiket</dt><dd>10 menit</dd></div>
+            </dl>
+            <p id="detail-unavailable" class="alert alert-warning" role="status" hidden></p>
+            <div class="d-grid gap-2">
+              <button id="open-ticket-confirmation" type="button" class="btn-simpark-primary">Buat Tiket Masuk</button>
+              <a id="detail-directions" class="btn-simpark-secondary" target="_blank" rel="noopener">Arah ke Zona</a>
+            </div>
+            <p class="text-caption mt-3 mb-0">Slot baru berkurang setelah scan masuk valid. Pembuatan tiket tidak menahan slot.</p>
+          </section>
         </div>
-
-        <!-- Alert Component -->
-        <simpark-alert 
-          tone="info" 
-          title="Tiket bukan reservasi slot" 
-          body="Slot berkurang hanya setelah scan masuk valid.">
-        </simpark-alert>
-      </div>
-
-      <!-- Right: Ringkasan Pilihan & Actions -->
-      <div class="col-lg-5">
-        <div class="card-simpark h-100 d-flex flex-column justify-content-between">
-          <div>
-            <h3 class="title-h3 mb-3">Ringkasan pilihan</h3>
-
-            <!-- Stats Tiles (Components) -->
-            <div class="d-flex gap-3 mb-4">
-              <simpark-stat-tile tone="light" label="Slot tersedia" value="45 / 100" id="zone-detail-slot"></simpark-stat-tile>
-              <simpark-stat-tile tone="light" label="Antrean" value="Rendah" id="zone-detail-queue"></simpark-stat-tile>
-            </div>
-
-            <!-- Metadata Rows -->
-            <div class="d-flex justify-content-between py-2 border-bottom">
-              <span class="text-caption">Gedung tujuan</span>
-              <strong>Gedung F — FILKOM</strong>
-            </div>
-            <div class="d-flex justify-content-between py-2 border-bottom">
-              <span class="text-caption">Zona</span>
-              <strong class="zone-detail-name">Zona A — Teknik Utara</strong>
-            </div>
-            <div class="d-flex justify-content-between py-2 mb-4">
-              <span class="text-caption">Masa berlaku tiket</span>
-              <strong>10 menit</strong>
-            </div>
-          </div>
-
-          <div>
-            <div class="d-grid gap-2 mb-3">
-              <button class="btn-simpark-primary w-100" data-bs-toggle="modal" data-bs-target="#confirmTicketModal">Buat Tiket Masuk</button>
-              <a href="explore.html" class="btn-simpark-secondary w-100">Kembali Cari Zona Lain</a>
-            </div>
-
-            <!-- Alert Component -->
-            <simpark-alert 
-              tone="warning" 
-              title="Masa Berlaku 10 Menit" 
-              body="Buat tiket saat sudah mendekati gerbang masuk kampus.">
-            </simpark-alert>
-          </div>
+        <div class="col-lg-7 order-lg-1 d-grid gap-3">
+          <section class="card-simpark" aria-labelledby="estimate-title">
+            <h2 id="estimate-title" class="title-h3 mb-3">Rincian estimasi waktu</h2>
+            <p id="detail-reason" class="text-caption"></p>
+            <dl class="simpark-metadata mb-0">
+              <div><dt>Perjalanan menuju zona</dt><dd id="breakdown-travel"></dd></div>
+              <div><dt>Antrean masuk</dt><dd id="breakdown-queue"></dd></div>
+              <div><dt>Mencari slot</dt><dd id="breakdown-search"></dd></div>
+              <div><dt>Jalan kaki ke gedung</dt><dd id="breakdown-walk"></dd></div>
+              <div><dt>Estimasi total</dt><dd id="zone-detail-total-time"></dd></div>
+            </dl>
+          </section>
+          <section class="card-simpark" aria-labelledby="detail-map-title">
+            <h2 id="detail-map-title" class="title-h3 mb-3">Peta zona</h2>
+            <simpark-map height="300px"></simpark-map>
+          </section>
         </div>
       </div>
+
+      <dialog id="confirm-ticket-dialog" class="simpark-dialog" aria-labelledby="confirm-ticket-title">
+        <h2 id="confirm-ticket-title" class="title-h2 mb-3">Konfirmasi pembuatan tiket</h2>
+        <dl class="simpark-metadata">
+          <div><dt>Zona</dt><dd id="confirm-zone"></dd></div>
+          <div><dt>Gedung tujuan</dt><dd id="confirm-destination"></dd></div>
+          <div><dt>Masa berlaku</dt><dd>10 menit</dd></div>
+        </dl>
+        <p class="text-caption">Tiket berlaku sejak diterbitkan. Kapasitas diperiksa kembali saat scan masuk.</p>
+        <p id="issue-error" class="alert alert-warning" role="status" hidden></p>
+        <form method="dialog" class="d-grid gap-2">
+          <button id="confirm-ticket" class="btn-simpark-primary" type="button">Buat Tiket Sekarang</button>
+          <button class="btn-simpark-secondary" autofocus>Batal</button>
+        </form>
+      </dialog>
     </div>
   </main>
 
-  <!-- Modal Konfirmasi Buat Tiket -->
-  <div class="modal fade" id="confirmTicketModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-      <div class="modal-content simpark-modal">
-        <div class="modal-body p-4">
-          <h2 class="title-h2 mb-3">Konfirmasi pembuatan tiket</h2>
-          
-          <div class="card-simpark p-3 mb-3 bg-light border-0">
-            <div class="d-flex justify-content-between py-1">
-              <span class="text-caption">Gedung tujuan</span>
-              <strong>Gedung F — FILKOM</strong>
-            </div>
-            <div class="d-flex justify-content-between py-1">
-              <span class="text-caption">Zona</span>
-              <strong class="zone-detail-name">Zona A — Teknik Utara</strong>
-            </div>
-            <div class="d-flex justify-content-between py-1">
-              <span class="text-caption">Masa berlaku</span>
-              <strong>10 menit</strong>
-            </div>
-          </div>
 
-          <simpark-alert 
-            class="d-block mb-4"
-            tone="info" 
-            title="Tiket bukan reservasi slot" 
-            body="Slot berkurang hanya setelah scan masuk valid.">
-          </simpark-alert>
-
-          <div class="d-grid gap-2">
-            <a href="ticket.html" class="btn-simpark-primary w-100">Buat Tiket Sekarang</a>
-            <button class="btn-simpark-secondary w-100" data-bs-dismiss="modal">Batal</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap 5 JS (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Leaflet JS (CDN) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <!-- SweetAlert2 (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script type="module" src="../assets/js/components/index.js"></script>
   <script type="module" src="../assets/js/app.js"></script>
 </body>
 </html>

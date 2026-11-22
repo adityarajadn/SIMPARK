@@ -24,118 +24,47 @@
   <simpark-header active="history" root-path="../"></simpark-header>
 
   <!-- Konten Riwayat Parkir (D06_History) -->
-  <main class="app-content container-xxl mt-4">
-    <!-- Title & Search Filters -->
-    <div class="d-flex flex-wrap align-items-end justify-content-between mb-4 gap-3">
-      <div>
-        <div class="text-caption mb-1">Transaksi parkir simulasi milikmu</div>
-        <h1 class="title-h1 mb-0">Riwayat Parkir</h1>
-      </div>
-      <div class="d-flex flex-wrap gap-2 w-100 w-md-auto">
-        <simpark-input placeholder="Cari ID tiket atau zona" style-width="240px" root-path="../" class="flex-grow-1 flex-md-grow-0"></simpark-input>
-        <simpark-input 
-          value="Bulan ini" 
-          chevron="true" 
-          options="Hari ini, Minggu ini, Bulan ini, Semua riwayat" 
-          style-width="200px" 
-          root-path="../"
-          class="flex-grow-1 flex-md-grow-0">
-        </simpark-input>
-      </div>
-    </div>
-
-    <!-- Stats Summary (Components) -->
-    <div class="row g-3 mb-4">
-      <div class="col-sm-6 col-lg-3">
-        <simpark-stat-tile tone="light" label="Total Parkir" value="6 kali"></simpark-stat-tile>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <simpark-stat-tile tone="light" label="Zona Favorit" value="Zona A"></simpark-stat-tile>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <simpark-stat-tile tone="light" label="Rata-rata Durasi" value="1 j 45 m"></simpark-stat-tile>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <simpark-stat-tile tone="light" label="Biaya Parkir" value="Rp 0 (UB)"></simpark-stat-tile>
-      </div>
-    </div>
-
-    <!-- History Table (DataTables Enabled) -->
-    <div class="card-simpark p-3 overflow-hidden mb-3">
-      <div class="table-responsive">
-        <table id="simpark-history-datatable" class="table table-hover align-middle w-100 mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>ID Tiket</th>
-              <th>Zona</th>
-              <th>Tanggal</th>
-              <th>Masuk</th>
-              <th>Keluar</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-001</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>08 Nov 2026</td>
-              <td>10:14</td>
-              <td>11:26</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-002</td>
-              <td>Zona B — FILKOM Selatan</td>
-              <td>06 Nov 2026</td>
-              <td>08:30</td>
-              <td>12:15</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-003</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>05 Nov 2026</td>
-              <td>13:00</td>
-              <td>16:45</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-004</td>
-              <td>Zona C — Gedung Rektorat</td>
-              <td>03 Nov 2026</td>
-              <td>09:10</td>
-              <td>10:20</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-005</td>
-              <td>Zona A — Teknik Utara</td>
-              <td>01 Nov 2026</td>
-              <td>07:50</td>
-              <td>11:00</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-            <tr>
-              <td class="fw-semibold text-primary">TKT-006</td>
-              <td>Zona B — FILKOM Selatan</td>
-              <td>28 Okt 2026</td>
-              <td>14:20</td>
-              <td>17:30</td>
-              <td><span class="badge-simpark badge-success-simpark">Selesai</span></td>
-            </tr>
-          </tbody>
-        </table>
+  <main class="app-content container-xxl mt-4" data-page="history">
+    <p id="app-status" class="alert alert-info" role="status">Memuat data parkir…</p>
+    <noscript><p>Aktifkan JavaScript untuk menjalankan simulasi SIMPARK-UB.</p></noscript>
+    <div data-content hidden>
+      <p class="text-caption mb-1">Transaksi simulasi di browser ini</p>
+      <h1 class="title-h1 mb-3">Riwayat Parkir</h1>
+      <p id="history-empty" class="alert alert-info" hidden>Belum ada transaksi selesai. Riwayat muncul setelah simulasi keluar parkir.</p>
+      <div id="history-content" hidden>
+        <dl class="history-metrics mb-3">
+          <div class="stat-tile tone-light"><dt>Total Parkir</dt><dd id="history-total"></dd></div>
+          <div class="stat-tile tone-light"><dt>Zona Favorit</dt><dd id="history-favorite"></dd></div>
+          <div class="stat-tile tone-light"><dt>Rata-rata Durasi</dt><dd id="history-duration"></dd></div>
+        </dl>
+        <div class="card-simpark p-3">
+          <div class="table-responsive">
+            <table id="simpark-history-datatable" class="table table-hover align-middle w-100 mb-0">
+              <caption class="visually-hidden">Transaksi parkir yang sudah selesai</caption>
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">ID Tiket</th>
+                  <th scope="col">Zona</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Masuk</th>
+                  <th scope="col">Keluar</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 
-  <!-- jQuery & DataTables JS (CDN) -->
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
   <!-- Bootstrap 5 JS (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="../assets/js/components/index.js"></script>
   <script type="module" src="../assets/js/app.js"></script>
 </body>
 </html>

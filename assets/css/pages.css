@@ -96,3 +96,239 @@ simpark-map {
     font-weight: 500;
   }
 }
+
+/* Layout dan kontrol untuk alur parkir simulasi */
+.app-content [hidden] {
+  display: none !important;
+}
+
+.page-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.simpark-field {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.page-heading .simpark-field {
+  width: min(100%, 360px);
+}
+
+.simpark-field .custom-input,
+.note-controls input {
+  width: 100%;
+  min-width: 0;
+}
+
+select.custom-input {
+  appearance: auto;
+  display: block;
+}
+
+.action-row,
+.zone-card-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
+}
+
+.zone-card-heading {
+  justify-content: space-between;
+}
+
+.recommendation-label {
+  color: var(--accent-default);
+}
+
+.recommendation-metrics,
+.history-metrics,
+.zone-card-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.recommendation-metrics .stat-tile {
+  padding: 12px 8px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.recommendation-metrics dt,
+.history-metrics dt,
+.zone-card-metrics dt {
+  font-weight: 500;
+}
+
+.recommendation-metrics dd,
+.history-metrics dd,
+.zone-card-metrics dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.zone-card-metrics dd {
+  color: var(--text-default);
+}
+
+.zone-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 16px;
+}
+
+.explore-controls,
+.explore-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.explore-grid {
+  align-items: start;
+}
+
+#explore-map {
+  scroll-margin-top: 16px;
+}
+
+#explore-filter-chips .chip-simpark,
+#matching-buildings .chip-simpark {
+  min-height: 44px;
+}
+
+.simpark-map-surface {
+  width: 100%;
+  border-radius: 16px;
+  background-color: var(--surface-subtle);
+  z-index: 1;
+}
+
+.map-notice:empty,
+#matching-buildings:empty {
+  display: none !important;
+}
+
+.simpark-map-pin {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: white;
+  font-weight: 700;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px #0005;
+}
+
+.simpark-metadata > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.simpark-metadata dt {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.simpark-metadata dd {
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
+.simpark-dialog {
+  width: min(92vw, 480px);
+  border: 1px solid var(--border-default);
+  border-radius: 24px;
+  padding: 24px;
+  color: var(--text-default);
+}
+
+.simpark-dialog::backdrop {
+  background: #18243688;
+}
+
+.ticket-layout {
+  max-width: 960px;
+}
+
+.ticket-body .qr-wrap {
+  max-width: 100%;
+  background: white;
+}
+
+#simpark-qrcode img {
+  display: block;
+}
+
+#ticket-progress-bar {
+  width: 100%;
+  height: 14px;
+  accent-color: var(--action-primary);
+}
+
+.note-controls {
+  display: grid;
+  gap: 8px;
+}
+
+.btn-simpark-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@media (min-width: 576px) {
+  .note-controls {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .explore-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .explore-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .explore-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .explore-grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .ticket-band,
+  .ticket-body {
+    padding: 24px 16px;
+  }
+
+  .history-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-metrics .stat-tile {
+    padding: 12px;
+  }
+}

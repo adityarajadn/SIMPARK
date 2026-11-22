@@ -1,96 +1,111 @@
-// <simpark-map height="100%"></simpark-map>
+import { directionsUrl, zoneTitle } from '../data.js';
+
+const campus = [-7.9535, 112.6144];
+const colors = { success: '#237a49', warning: '#9a6700', error: '#b42318', destination: '#1763b1' };
+
 export class SimparkMap extends HTMLElement {
   connectedCallback() {
-    const height = this.getAttribute('height') || '100%';
-    const mapId = 'map-' + Math.random().toString(36).substring(2, 9);
-
-    this.style.display = 'block';
-    this.style.width = '100%';
-    this.style.height = height === '100%' ? '100%' : height;
-
-    this.innerHTML = `
-      <div id="${mapId}" class="w-100 h-100 rounded-3 overflow-hidden position-relative" style="min-height: 280px; z-index: 1;"></div>
-    `;
-
-    // Pastikan Leaflet ter-load sebelum inisialisasi
-    this.initLeaflet(mapId);
+    if (this.notice) return;
+    this.notice = document.createElement('p');
+    this.notice.className = 'map-notice text-caption mb-2';
+    this.notice.setAttribute('role', 'status');
+    this.container = document.createElement('div');
+    this.container.className = 'simpark-map-surface';
+    this.container.style.height = this.getAttribute('height') || '320px';
+    this.container.setAttribute('aria-label', 'Peta interaktif SIMPARK UB');
+    this.append(this.notice, this.container);
   }
 
-  initLeaflet(containerId) {
-    const init = () => {
-      if (typeof L === 'undefined') {
-        setTimeout(init, 100);
-        return;
-      }
+  initializeMap(center, zoom) {
+    if (!window.L) {
+      this.notice.textContent = 'Peta tidak dapat dimuat. Informasi zona tetap tersedia di halaman ini.';
+      this.container.hidden = true;
+      return;
+    }
 
-      // Titik Tengah Universitas Brawijaya
-      const ubCoords = [-7.9535, 112.6144];
-      const map = L.map(containerId, {
-        zoomControl: true,
-        scrollWheelZoom: true
-      }).setView(ubCoords, 16);
+    this.map = L.map(this.container, { scrollWheelZoom: false }).setView(center, zoom);
+    this.markers = L.layerGroup().addTo(this.map);
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
 
-      // OpenStreetMap Tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
+    tiles.on('loading', () => {
+      this.tileFailed = false;
+      this.notice.textContent = this.loaded ? '' : 'Memuat peta…';
+    });
+    tiles.on('tileerror', () => {
+      this.tileFailed = true;
+      this.notice.textContent = 'Sebagian peta gagal dimuat. Periksa koneksi internet.';
+    });
+    tiles.on('load', () => {
+      this.loaded = !!this.container.querySelector('.leaflet-tile-loaded');
+      this.notice.textContent = this.loaded
+        ? (this.tileFailed ? 'Sebagian peta gagal dimuat. Periksa koneksi internet.' : '')
+        : 'Peta tidak dapat dimuat. Periksa koneksi internet.';
+    });
+    tiles.addTo(this.map);
+    this.observer = new ResizeObserver(() => {
+      if (this.container.clientWidth) this.map.invalidateSize({ animate: false });
+    });
+    this.observer.observe(this.container);
+  }
 
-      // Marker Icon Generator
-      const createMarkerIcon = (color, label) => L.divIcon({
-        className: 'simpark-custom-pin',
-        html: `<div style="background-color: ${color}; width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 13px;">${label}</div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14],
-        popupAnchor: [0, -14]
-      });
+  update(destination, options, focusedZoneId) {
+    const focus = options.find(option => option.zone.id === focusedZoneId)?.zone.titikMasuk;
+    const point = focus || destination?.koordinat;
+    const center = point ? [point.latitude, point.longitude] : campus;
+    const zoom = focus ? 17 : 16;
+    const cameraKey = focusedZoneId || destination?.id;
 
-      // Markers Data
-      const locations = [
-        {
-          name: "Gedung F — FILKOM",
-          coords: [-7.9542, 112.6146],
-          color: "#1763B1", // Biru UB
-          label: "★",
-          popup: "<b>Gedung F — FILKOM</b><br><span class='text-muted'>Gedung Tujuan Anda</span>"
-        },
-        {
-          name: "Zona A — Parkir Teknik Utara",
-          coords: [-7.9525, 112.6138],
-          color: "#237A49", // Hijau
-          label: "A",
-          popup: "<b>Zona A — Rekomendasi Utama</b><br>45 / 100 Slot Tersedia · Estimasi 8 mnt"
-        },
-        {
-          name: "Zona B — Parkir FIB Barat",
-          coords: [-7.9552, 112.6130],
-          color: "#B54708", // Kuning/Oranye
-          label: "B",
-          popup: "<b>Zona B — Alternatif</b><br>12 / 60 Slot Tersedia · Estimasi 11 mnt"
-        },
-        {
-          name: "Zona C — Parkir Samantha Krida",
-          coords: [-7.9530, 112.6162],
-          color: "#B42318", // Merah
-          label: "C",
-          popup: "<b>Zona C — Samantha Krida</b><br><span style='color: #B42318;'>Penuh (0 Slot)</span> · Estimasi 14 mnt"
-        }
-      ];
+    if (!this.map) this.initializeMap(center, zoom);
+    else if (this.cameraKey !== cameraKey) this.map.setView(center, zoom);
+    this.cameraKey = cameraKey;
+    if (!this.map) return;
 
-      locations.forEach(loc => {
-        const marker = L.marker(loc.coords, {
-          icon: createMarkerIcon(loc.color, loc.label)
-        }).addTo(map);
-        marker.bindPopup(loc.popup);
-        if (loc.label === 'A') {
-          marker.openPopup();
-        }
-      });
+    this.markers.clearLayers();
+    if (destination?.koordinat) {
+      const title = document.createElement('strong');
+      title.textContent = destination.nama;
+      this.addMarker(destination.koordinat, '★', 'destination', destination.nama, title);
+    }
 
-      // Fix render size if parent was resizing
-      setTimeout(() => map.invalidateSize(), 300);
-    };
+    for (const option of options) {
+      const { zone, available, capacity, totalTime } = option;
+      if (!zone.titikMasuk) continue;
 
-    init();
+      const popup = document.createElement('div');
+      const heading = document.createElement('strong');
+      heading.textContent = zoneTitle(zone);
+      const stats = document.createElement('p');
+      stats.className = 'mt-1 mb-1';
+      const time = totalTime === null ? 'Estimasi belum tersedia' : `Estimasi ${totalTime} menit`;
+      stats.textContent = `${capacity.label} · ${available} / ${zone.kapasitasTotal} slot · ${time}`;
+      const directions = document.createElement('a');
+      directions.href = directionsUrl(zone);
+      directions.target = '_blank';
+      directions.rel = 'noopener';
+      directions.textContent = 'Arah ke Zona';
+      popup.append(heading, stats, directions);
+      this.addMarker(zone.titikMasuk, zone.id, capacity.tone, zoneTitle(zone), popup);
+    }
+
+  }
+
+  addMarker(point, label, tone, title, popup) {
+    const pin = document.createElement('span');
+    pin.className = 'simpark-map-pin';
+    pin.style.backgroundColor = colors[tone];
+    pin.textContent = label;
+    const icon = L.divIcon({
+      className: 'simpark-custom-pin',
+      html: pin,
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -14]
+    });
+    L.marker([point.latitude, point.longitude], { icon, title, alt: title })
+      .addTo(this.markers).bindPopup(popup);
   }
 }
+
 customElements.define('simpark-map', SimparkMap);

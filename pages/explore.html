@@ -24,109 +24,57 @@
   <simpark-header active="explore" root-path="../"></simpark-header>
 
   <!-- Konten Cari Parkir (D02_Explore) -->
-  <main class="app-content container-xxl mt-4">
-    <!-- Title Row -->
-    <div class="d-flex flex-wrap align-items-end justify-content-between mb-3 gap-3">
-      <div>
-        <div class="text-caption mb-1">Tujuan: Gedung F — FILKOM</div>
-        <h1 class="title-h1 mb-0">Cari Parkir</h1>
-      </div>
-      <div class="text-caption">Kapasitas diperbarui 1 menit lalu (simulasi)</div>
-    </div>
-
-    <!-- Toolbar & Filters -->
-    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-      <div class="d-flex flex-wrap align-items-center gap-3 w-100 w-lg-auto">
-        <!-- Search Input Component -->
-        <simpark-input placeholder="Cari gedung atau zona" icon="search" style-width="380px" root-path="../" class="w-100 w-md-auto"></simpark-input>
-        
-        <!-- Filter Chips Component -->
-        <div class="d-flex flex-wrap gap-2" id="explore-filter-chips">
-          <simpark-chip label="Semua" active="true" data-filter="all"></simpark-chip>
-          <simpark-chip label="Tersedia" active="false" data-filter="success"></simpark-chip>
-          <simpark-chip label="Terbatas" active="false" data-filter="warning"></simpark-chip>
-          <simpark-chip label="Penuh" active="false" data-filter="error"></simpark-chip>
+  <main class="app-content container-xxl mt-4" data-page="explore">
+    <p id="app-status" class="alert alert-info" role="status">Memuat data parkir…</p>
+    <noscript><p>Aktifkan JavaScript untuk menjalankan simulasi SIMPARK-UB.</p></noscript>
+    <div data-content hidden>
+      <p class="text-caption mb-1">Kapasitas dan estimasi simulasi</p>
+      <h1 class="title-h1 mb-3">Cari Parkir</h1>
+      <div class="explore-controls mb-3">
+        <div class="simpark-field">
+          <label for="destination">Gedung tujuan</label>
+          <select id="destination" class="form-select custom-input"></select>
+        </div>
+        <div class="simpark-field">
+          <label for="zone-search">Cari gedung atau zona</label>
+          <input id="zone-search" type="search" class="form-control custom-input" placeholder="Nama atau kode" autocomplete="off">
+        </div>
+        <div class="simpark-field">
+          <label for="zone-sort">Urutkan</label>
+          <select id="zone-sort" class="form-select custom-input">
+            <option value="time">Waktu tercepat</option>
+            <option value="slots">Slot terbanyak</option>
+            <option value="distance">Jarak terdekat</option>
+          </select>
         </div>
       </div>
-      
-      <div class="d-flex align-items-center gap-2 w-100 w-sm-auto justify-content-between justify-content-sm-start">
-        <span class="text-caption fw-medium">Urutkan</span>
-        <simpark-input 
-          value="Waktu tercepat" 
-          chevron="true" 
-          options="Waktu tercepat, Slot terbanyak, Jarak terdekat" 
-          style-width="200px" 
-          root-path="../"
-          class="flex-grow-1 flex-sm-grow-0">
-        </simpark-input>
+
+      <div id="matching-buildings" class="d-flex flex-wrap gap-2 mb-3" aria-label="Gedung yang cocok"></div>
+      <div class="d-flex flex-wrap gap-2 mb-3" id="explore-filter-chips" role="group" aria-label="Ketersediaan zona">
+        <button type="button" class="chip-simpark active" data-filter="all" aria-pressed="true">Semua</button>
+        <button type="button" class="chip-simpark" data-filter="success" aria-pressed="false">Tersedia</button>
+        <button type="button" class="chip-simpark" data-filter="warning" aria-pressed="false">Terbatas</button>
+        <button type="button" class="chip-simpark" data-filter="error" aria-pressed="false">Hampir penuh / Penuh</button>
       </div>
-    </div>
+      <a href="#explore-map" class="d-inline-block d-md-none mb-3">Lihat peta zona ↓</a>
 
-    <!-- Two Columns: Zone List & Large Map -->
-    <div class="row g-4">
-      <!-- Zone List (col-lg-4) -->
-      <div class="col-lg-4 d-flex flex-column gap-3">
-        <div class="text-caption">3 zona ditemukan · urut waktu tercepat</div>
-
-        <!-- Zone A Component -->
-        <simpark-zone-card 
-          zone-key="A" 
-          name="Parkir Teknik Utara" 
-          status-tone="success" 
-          status-text="Tersedia · 45 slot" 
-          estimate="8 menit" 
-          slots="45 / 100" 
-          queue="Rendah" 
-          selected="true"
-          href="detail.html?zone=A">
-        </simpark-zone-card>
-
-        <!-- Zone B Component -->
-        <simpark-zone-card 
-          zone-key="B" 
-          name="Parkir FILKOM Selatan" 
-          status-tone="warning" 
-          status-text="Terbatas · 12 slot" 
-          estimate="9 menit" 
-          slots="12 / 80" 
-          queue="Sedang" 
-          href="detail.html?zone=B">
-        </simpark-zone-card>
-
-        <!-- Zone C Component -->
-        <simpark-zone-card 
-          zone-key="C" 
-          name="Parkir Gedung Rektorat" 
-          status-tone="error" 
-          status-text="Penuh · 0 slot" 
-          estimate="11 menit" 
-          slots="0 / 60" 
-          queue="Tinggi" 
-          href="detail.html?zone=C">
-        </simpark-zone-card>
-
-        <!-- Alert Component -->
-        <simpark-alert 
-          tone="warning" 
-          title="Tiket bukan reservasi slot" 
-          body="Slot berkurang hanya setelah scan masuk valid.">
-        </simpark-alert>
-      </div>
-
-      <!-- Large Map Component (col-lg-8) -->
-      <div class="col-lg-8">
-        <div class="card-simpark p-0 h-100 overflow-hidden" style="min-height: 520px;">
-          <simpark-map height="520px" root-path="../" class="h-100 d-block"></simpark-map>
-        </div>
+      <div class="explore-grid">
+        <section aria-label="Daftar zona">
+          <p id="zone-count" class="text-caption mb-3" role="status"></p>
+          <div id="zone-results" class="d-grid gap-3"></div>
+        </section>
+        <section class="card-simpark" id="explore-map" aria-labelledby="explore-map-title">
+          <h2 id="explore-map-title" class="title-h3 mb-3">Peta zona</h2>
+          <simpark-map height="420px"></simpark-map>
+        </section>
       </div>
     </div>
   </main>
 
-  <!-- Bootstrap 5 JS (CDN) -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Leaflet JS (CDN) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script type="module" src="../assets/js/components/index.js"></script>
   <script type="module" src="../assets/js/app.js"></script>
 </body>
 </html>
