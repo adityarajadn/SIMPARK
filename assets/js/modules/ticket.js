@@ -16,6 +16,24 @@ export function initDynamicQRCode() {
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.M
   });
+
+  // Hubungkan tombol scan berhasil agar mengaktifkan sesi parkir di localStorage
+  const scanSuccessBtn = document.getElementById('btn-scan-success');
+  if (scanSuccessBtn) {
+    scanSuccessBtn.href = `active.html?zone=${zoneKey}&ticketId=${ticketId}`;
+    scanSuccessBtn.addEventListener('click', function () {
+      const now = new Date();
+      const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+      const activeData = {
+        hasActive: true,
+        ticketId: ticketId,
+        zoneKey: zoneKey,
+        entryTime: timeStr,
+        startTime: Date.now()
+      };
+      localStorage.setItem('simpark_active_parking', JSON.stringify(activeData));
+    });
+  }
 }
 
 export function initTicketCountdown() {

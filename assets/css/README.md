@@ -40,11 +40,12 @@ flowchart TD
   - **Typography**: Pengaturan font family *Space Grotesk*.
 
 ### 2. `layout.css`
-- **Tanggung Jawab**: Menata struktur grid global, pembungkus kontainer aplikasi, dan navigasi navbar header (`<simpark-header>`).
+- **Tanggung Jawab**: Menata struktur grid global, pembungkus kontainer aplikasi (`.container-xxl` dengan padding responsive), dan sistem navigasi adaptif.
 - **Elemen Kunci**:
-  - `.app-content`: Padding atas dan penataan container fluid aplikasi.
-  - `.simpark-navbar`: Header fixed-top dengan background blur/transparan dan shadow halus.
-  - Navigasi link aktif indikator.
+  - `.container-xxl`: Memberikan padding horizontal proporsional (desktop 32px, mobile 16px–20px) agar konten tidak mepet tepi layar.
+  - `.app-header`: Header navigasi desktop yang otomatis tersembunyi pada layar mobile (`d-none d-md-block`).
+  - `.simpark-bottom-nav`: **Mobile Bottom Navigation Bar** berposisi fixed di bawah layar dengan efek glassmorphism (`backdrop-filter: blur(12px)`), 4 menu ikon sejajar (*Beranda, Cari, Aktif, Riwayat*), dan safe area support.
+  - `.app-content`: Padding bawah ekstra (`padding-bottom: 90px` di mobile) untuk mencegah konten tertutup oleh bottom navigation bar.
 
 ### 3. `components.css`
 - **Tanggung Jawab**: Menampung styling komponen-komponen UI atomik dan molekuler yang dipakai berulang kali.

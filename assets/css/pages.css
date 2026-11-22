@@ -75,6 +75,20 @@ simpark-map {
 }
 
 @media (max-width: 768px) {
+  .ticket-band {
+    padding: 20px 16px;
+  }
+  .ticket-body {
+    padding: 20px 16px;
+  }
+  .qr-wrap {
+    width: 180px;
+    height: 180px;
+    padding: 8px;
+  }
+  .ticket-qr-card {
+    border-radius: 20px;
+  }
   .table-history-row {
     padding: 14px 16px;
     gap: 8px;

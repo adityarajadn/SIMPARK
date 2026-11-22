@@ -26,7 +26,7 @@
       </div>
       <div class="d-flex flex-wrap align-items-center gap-3">
         <h1 class="title-h1 mb-0 zone-detail-name">Zona A — Parkir Teknik Utara</h1>
-        <span class="badge-simpark badge-success-simpark zone-detail-badge">Tersedia · 45 slot</span>
+        <span class="fw-bold text-dark zone-detail-badge fs-5">45/100 slot</span>
         <span class="badge-simpark d-none" id="zone-detail-recommendation-badge" style="background-color: var(--action-soft); color: var(--text-link);">Rekomendasi</span>
       </div>
     </div>
@@ -38,26 +38,34 @@
         <simpark-map height="300px" root-path="../"></simpark-map>
 
         <div class="card-simpark">
-          <h3 class="title-h3 mb-3">Rincian estimasi waktu</h3>
-
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Perjalanan menuju zona</span>
-            <strong id="breakdown-travel">3 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Antrean masuk</span>
-            <strong id="breakdown-queue">1 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Mencari slot</span>
-            <strong id="breakdown-search">2 menit</strong>
-          </div>
-          <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-            <span>Jalan kaki ke Gedung F</span>
-            <strong id="breakdown-walk">2 menit</strong>
+          <div class="d-flex justify-content-between align-items-center mb-2" data-bs-toggle="collapse" data-bs-target="#breakdownCollapse" role="button" aria-expanded="false" aria-controls="breakdownCollapse" style="cursor: pointer;">
+            <h3 class="title-h3 mb-0">Rincian estimasi waktu</h3>
+            <span class="d-flex align-items-center text-caption fw-medium text-primary">
+              <span class="d-none d-sm-inline me-1">Detail</span>
+              <i class="bi bi-chevron-down fs-6"></i>
+            </span>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center pt-3">
+          <div class="collapse show" id="breakdownCollapse">
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+              <span>Perjalanan menuju zona</span>
+              <strong id="breakdown-travel">3 menit</strong>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+              <span>Antrean masuk</span>
+              <strong id="breakdown-queue">1 menit</strong>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+              <span>Mencari slot</span>
+              <strong id="breakdown-search">2 menit</strong>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+              <span>Jalan kaki ke Gedung F</span>
+              <strong id="breakdown-walk">2 menit</strong>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center pt-3 mt-1 border-top">
             <span class="fw-medium">Estimasi total</span>
             <h2 class="title-h2 mb-0" style="color: var(--action-primary);" id="zone-detail-total-time">8 menit</h2>
           </div>

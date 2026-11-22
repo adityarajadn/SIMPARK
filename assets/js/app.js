@@ -2,7 +2,7 @@ import { initLiveDate, getQueryParam } from './modules/utils.js';
 import { initExploreFilters } from './modules/explore.js';
 import { initZoneDetail } from './modules/zone-detail.js';
 import { initDynamicQRCode, initTicketCountdown } from './modules/ticket.js';
-import { initActiveParkingTimer, initActiveParkingActions } from './modules/active-parking.js';
+import { initActiveParkingState, initActiveParkingTimer, initActiveParkingActions } from './modules/active-parking.js';
 import { initHistoryDataTable } from './modules/history.js';
 
 // Re-export helpers if needed by other components
@@ -13,6 +13,7 @@ export {
   initZoneDetail,
   initDynamicQRCode,
   initTicketCountdown,
+  initActiveParkingState,
   initActiveParkingTimer,
   initActiveParkingActions,
   initHistoryDataTable
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initZoneDetail();
   initTicketCountdown();
   initDynamicQRCode();
+  initActiveParkingState();
   initActiveParkingTimer();
   initActiveParkingActions();
   initHistoryDataTable();

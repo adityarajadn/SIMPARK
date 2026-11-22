@@ -9,8 +9,8 @@ export function initZoneDetail() {
     el.textContent = zone.fullName;
   });
   document.querySelectorAll('.zone-detail-badge').forEach(function (el) {
-    el.className = `badge-simpark ${zone.badgeClass}`;
-    el.textContent = zone.statusText;
+    el.className = `fw-bold text-dark zone-detail-badge fs-5`;
+    el.textContent = `${zone.slotAvailable}/${zone.slotTotal} slot`;
   });
 
   const recBadge = document.getElementById('zone-detail-recommendation-badge');
