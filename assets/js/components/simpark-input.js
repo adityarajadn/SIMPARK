@@ -27,7 +27,9 @@ export class SimparkInput extends HTMLElement {
       `;
     } else if (hasChevron && optionsAttr) {
 
-      const optionsList = optionsAttr.split(',').map(s => s.trim());
+      const optionsList = optionsAttr.split(',').map(function (s) {
+        return s.trim();
+      });
       const dropdownId = 'dropdown-' + Math.random().toString(36).substring(2, 9);
 
       this.innerHTML = `
@@ -44,27 +46,32 @@ export class SimparkInput extends HTMLElement {
             ${chevronHtml}
           </button>
           <ul class="dropdown-menu shadow-sm rounded-4 border-0 p-2 mt-1" aria-labelledby="${dropdownId}" style="width: 100%; min-width: 180px;">
-            ${optionsList.map(opt => `
+            ${optionsList.map(function (opt) {
+              return `
               <li>
                 <a class="dropdown-item rounded-3 py-2 ${opt === initialValue ? 'active fw-medium' : ''}" href="#" data-val="${opt}">
                   ${opt}
                 </a>
               </li>
-            `).join('')}
+              `;
+            }).join('')}
           </ul>
         </div>
       `;
 
+      const self = this;
       const labelEl = this.querySelector('.selected-label');
-      this.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', (e) => {
+      this.querySelectorAll('.dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
           e.preventDefault();
           const selectedVal = item.getAttribute('data-val');
           if (labelEl) labelEl.textContent = selectedVal;
-          this.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active', 'fw-medium'));
+          self.querySelectorAll('.dropdown-item').forEach(function (i) {
+            i.classList.remove('active', 'fw-medium');
+          });
           item.classList.add('active', 'fw-medium');
 
-          this.dispatchEvent(new CustomEvent('change', { detail: { value: selectedVal } }));
+          self.dispatchEvent(new CustomEvent('change', { detail: { value: selectedVal } }));
         });
       });
     } else {

@@ -17,7 +17,8 @@ export class SimparkMap extends HTMLElement {
   }
 
   initLeaflet(containerId, initialZone) {
-    const init = () => {
+    const self = this;
+    function init() {
       if (typeof L === 'undefined') {
         setTimeout(init, 100);
         return;
@@ -78,15 +79,17 @@ export class SimparkMap extends HTMLElement {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      const createMarkerIcon = (color, label) => L.divIcon({
-        className: 'simpark-custom-pin',
-        html: `<div style="background-color: ${color}; width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 13px;">${label}</div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14],
-        popupAnchor: [0, -14]
-      });
+      function createMarkerIcon(color, label) {
+        return L.divIcon({
+          className: 'simpark-custom-pin',
+          html: `<div style="background-color: ${color}; width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 13px;">${label}</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+          popupAnchor: [0, -14]
+        });
+      }
 
-      displayLocations.forEach(loc => {
+      displayLocations.forEach(function (loc) {
         const marker = L.marker(loc.coords, {
           icon: createMarkerIcon(loc.color, loc.label)
         }).addTo(map);
@@ -96,12 +99,14 @@ export class SimparkMap extends HTMLElement {
         }
       });
 
-      this.leafletMap = map;
-      this.markerData = allLocations;
-      this.createMarkerIcon = createMarkerIcon;
+      self.leafletMap = map;
+      self.markerData = allLocations;
+      self.createMarkerIcon = createMarkerIcon;
 
-      setTimeout(() => map.invalidateSize(), 300);
-    };
+      setTimeout(function () {
+        map.invalidateSize();
+      }, 300);
+    }
 
     init();
   }
@@ -109,9 +114,10 @@ export class SimparkMap extends HTMLElement {
   showZone(zoneKey) {
     if (!this.leafletMap || !this.markerData) return;
 
-    this.leafletMap.eachLayer(layer => {
+    const self = this;
+    this.leafletMap.eachLayer(function (layer) {
       if (layer instanceof L.Marker) {
-        this.leafletMap.removeLayer(layer);
+        self.leafletMap.removeLayer(layer);
       }
     });
 
@@ -124,10 +130,10 @@ export class SimparkMap extends HTMLElement {
       this.leafletMap.setView([-7.9535, 112.6144], 16);
     }
 
-    displayLocations.forEach(loc => {
+    displayLocations.forEach(function (loc) {
       const marker = L.marker(loc.coords, {
-        icon: this.createMarkerIcon(loc.color, loc.label)
-      }).addTo(this.leafletMap);
+        icon: self.createMarkerIcon(loc.color, loc.label)
+      }).addTo(self.leafletMap);
       marker.bindPopup(loc.popup);
       if (loc.label === zoneKey) {
         marker.openPopup();

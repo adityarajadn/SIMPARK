@@ -30,7 +30,7 @@ export function initTicketCountdown() {
   if (!countdownEl) return;
 
   let remaining = 582;
-  const interval = setInterval(() => {
+  const interval = setInterval(function () {
     if (remaining > 0) {
       remaining--;
       const mins = Math.floor(remaining / 60).toString().padStart(2, '0');
@@ -51,13 +51,15 @@ export function initExploreFilters() {
   const simparkMapEl = document.querySelector('simpark-map');
 
   if (filterChips.length) {
-    filterChips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        filterChips.forEach(c => c.classList.remove('active'));
+    filterChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        filterChips.forEach(function (c) {
+          c.classList.remove('active');
+        });
         chip.classList.add('active');
         const filter = chip.getAttribute('data-filter');
 
-        document.querySelectorAll('.explore-zone-card').forEach(card => {
+        document.querySelectorAll('.explore-zone-card').forEach(function (card) {
           const tone = card.getAttribute('data-tone');
           if (filter === 'all' || filter === tone) {
             card.style.display = 'block';
@@ -69,16 +71,15 @@ export function initExploreFilters() {
     });
   }
 
-  // Interaktivitas klik kartu zona di explore.html untuk update pin map
+  // Interaktivitas kartu zona di explore.html untuk preview posisi peta
   const zoneCards = document.querySelectorAll('simpark-zone-card');
   if (zoneCards.length && simparkMapEl) {
-    zoneCards.forEach(cardWrapper => {
+    zoneCards.forEach(function (cardWrapper) {
       const anchor = cardWrapper.querySelector('a.explore-zone-card');
-      const innerCard = cardWrapper.querySelector('.card-simpark');
       const zoneKey = cardWrapper.getAttribute('zone-key');
 
       if (anchor) {
-        anchor.addEventListener('mouseenter', () => {
+        anchor.addEventListener('mouseenter', function () {
           // Hover untuk preview posisi di peta
           if (simparkMapEl.showZone) {
             simparkMapEl.showZone(zoneKey);
@@ -93,8 +94,10 @@ export function initZoneDetail() {
   const zoneKey = getQueryParam('zone') || 'A';
   const zone = ZONES[zoneKey] || ZONES['A'];
 
-  document.querySelectorAll('.zone-detail-name').forEach(el => el.textContent = zone.fullName);
-  document.querySelectorAll('.zone-detail-badge').forEach(el => {
+  document.querySelectorAll('.zone-detail-name').forEach(function (el) {
+    el.textContent = zone.fullName;
+  });
+  document.querySelectorAll('.zone-detail-badge').forEach(function (el) {
     el.className = `badge-simpark ${zone.badgeClass}`;
     el.textContent = zone.statusText;
   });
@@ -154,7 +157,7 @@ export function initHistoryDataTable() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   initTicketCountdown();
   initExploreFilters();
   initZoneDetail();
