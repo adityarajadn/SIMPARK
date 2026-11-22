@@ -6,49 +6,52 @@ Semua modul ditulis menggunakan standar **ES Modules** murni tanpa build tool, d
 
 ---
 
-## ⚡ Alur Data & Eksekusi Script
+## ⚡ Alur Data & Eksekusi Script Modular
 
 ```mermaid
 flowchart TD
-    HTML["Halaman HTML (detail.html, explore.html, dll)"]
-    ComponentsIndex["components/index.js (Registrasi Custom Elements)"]
-    WebComponents["Custom Elements (simpark-header, map, card, dll)"]
-    AppJS["app.js (Event Handler & Logic Hub)"]
-    DataJS["data.js (Master Data Zona A, B, C)"]
-    LeafletMap["Leaflet & OpenStreetMap (simpark-map.js)"]
-    QRCodeLib["QRCode.js (Tiket QR Generator)"]
+    HTML["Halaman HTML (index.html, detail.html, dll)"]
+    AppJS["app.js (Main Orchestrator Entry Point)"]
+    
+    subgraph Modules["assets/js/modules/"]
+        Utils["utils.js (URL params & tanggal real-time)"]
+        Explore["explore.js (Filter, search & sorting zona)"]
+        Detail["zone-detail.js (Dynamic data binding)"]
+        Ticket["ticket.js (QR Code & countdown 10 menit)"]
+        Active["active-parking.js (Live timer & SweetAlert toast)"]
+        History["history.js (DataTables riwayat)"]
+    end
 
-    HTML -->|"type=module"| ComponentsIndex
-    ComponentsIndex --> WebComponents
-    WebComponents -.-> LeafletMap
+    DataJS["data.js (Master Data Zona A, B, C)"]
+    ComponentsIndex["components/index.js (Web Components)"]
 
     HTML -->|"type=module"| AppJS
-    AppJS -->|"import ZONES"| DataJS
-    AppJS -->|"Query URL Param: zone"| HTML
-    AppJS -->|"Update UI DOM"| HTML
-    AppJS -.-> QRCodeLib
+    HTML -->|"type=module"| ComponentsIndex
+
+    AppJS --> Utils
+    AppJS --> Explore
+    AppJS --> Detail
+    AppJS --> Ticket
+    AppJS --> Active
+    AppJS --> History
+
+    Detail --> DataJS
 ```
 
 ---
 
-## 📄 Penjelasan File Inti
+## 📄 Penjelasan Modul JavaScript (`assets/js/modules/`)
 
-### 1. `data.js`
-- **Fungsi**: Database mini di sisi klien (single source of truth) yang menyimpan rincian properti untuk masing-masing zona parkir:
-  - `A`: Parkir Teknik Utara (Rekomendasi Utama, 45 slot, waktu 8 menit, antrean rendah).
-  - `B`: Parkir FILKOM Selatan (Alternatif, 12 slot, waktu 9 menit, antrean sedang).
-  - `C`: Parkir Gedung Rektorat (Penuh, 0 slot, waktu 11 menit, antrean tinggi).
-- **Properti yang Disediakan**: Nama lengkap, status tone warna badge, total kapasitas & sisa slot, antrean, deskripsi alasan rekomendasi, gedung tujuan, serta objek `breakdown` waktu perjalanan.
+Struktur JavaScript dipecah secara modular (*Separation of Concerns*):
 
-### 2. `app.js`
-- **Fungsi**: Pusat controller logika halaman yang dieksekusi saat event `DOMContentLoaded`.
-- **Fungsi Utama**:
-  - `getQueryParam(param)`: Mengambil nilai parameter dari query string URL browser (`window.location.search`).
-  - `initZoneDetail()`: Membaca parameter `?zone=...` dan memetakan data dari `data.js` ke seluruh elemen teks, badge rekomendasi, ubin statistik, dan modal di halaman [pages/detail.html](../pages/detail.html).
-  - `initExploreFilters()`: Menangani filter chip status ketersediaan pada halaman pencarian serta event `mouseenter` pada kartu zona untuk memicu sorotan pin di peta Leaflet.
-  - `initTicketCountdown()`: Menjalankan timer hitung mundur 10 menit untuk masa berlaku tiket dengan kalkulasi menit:detik dan pembaruan lebar progress bar.
-  - `initDynamicQRCode()`: Mengonstruksi payload QR dinamis berformat `SIMPARK-UB:{ID}:{ZONA}:{TIMESTAMP}` dan merendernya ke kontainer QR canvas.
-  - `initHistoryDataTable()`: Mengaktifkan fungsionalitas pencarian, pagination, dan translasi bahasa Indonesia pada tabel riwayat transaksi via DataTables.
+1. **`app.js`**: Orchestrator utama yang mengimpor seluruh modul dan mengeksekusinya saat `DOMContentLoaded`.
+2. **`data.js`**: Objek master database client-side (`ZONES`) yang menyimpan kuota slot, waktu, antrean, dan deskripsi masing-masing zona.
+3. **`modules/utils.js`**: Helper umum seperti `getQueryParam()` dan fungsi tanggal lokal real-time `initLiveDate()`.
+4. **`modules/explore.js`**: Logika filter kartu ketersediaan (*Semua, Tersedia, Terbatas, Penuh*), real-time search, sorting opsi dropdown (*Waktu, Slot, Jarak*), dan hover pin Leaflet.
+5. **`modules/zone-detail.js`**: Pembaca parameter URL dan mapper data dinamis ke elemen UI di `pages/detail.html`.
+6. **`modules/ticket.js`**: Generator dynamic QR Code via `QRCode.js` dan countdown timer 10 menit dengan animasi progress bar.
+7. **`modules/active-parking.js`**: Live stopwatch counter durasi parkir berjalan serta pemicu notifikasi Toast SweetAlert2 saat menyimpan lokasi spesifik.
+8. **`modules/history.js`**: Inisialisasi tabel riwayat parkir dinamis menggunakan DataTables.js (search, paging, dan sorting).
 
 ---
 
